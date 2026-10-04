@@ -5,7 +5,7 @@ import hashlib
 import json
 import statistics
 from pathlib import Path
-from compare_versions import load, compare
+from compare_versions import load, compare, compare_evaluations, evaluation_medians
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -33,7 +33,11 @@ def describe(entry):
                             "advice_rejected": sum(row.get("event") == "model_advice_applied" and not row.get("accepted") for row in records),
                             "request_bundles": sum(row.get("event") == "request_bundle" for row in records),
                             "request_executions": sum(row.get("event") == "request_execution" for row in records),
-                            "diagnostic_pairs": sum(row.get("event") == "diagnostic_pair" for row in records)})
+                            "diagnostic_pairs": sum(row.get("event") == "diagnostic_pair" for row in records),
+                            "pointing_selections": sum(row.get("event") == "pointing_selection" for row in records),
+                            "pointing_switches": sum(row.get("event") == "pointing_selection" and row.get("selected_rank", 0) > 0 for row in records),
+                            "required_protected_selections": sum(row.get("event") == "pointing_selection" and row.get("protected_required", 0) > 0 for row in records),
+                            "quality_guard_selections": sum(row.get("event") == "pointing_selection" and bool(row.get("quality_guard")) for row in records)})
     keys = ["total", "sum_best_scores", "required_missing", "required_penalty", "uniformity_penalty",
             "report_settlement", "observation_request_reward", "wall_seconds", "model_attempts", "model_seconds"]
     medians = {card: {k: statistics.median(r[k] for r in rows) for k in keys if all(k in r for r in rows)}
@@ -54,14 +58,34 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("manifest", type=Path)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--whole-evaluations", action="store_true",
+                        help="Also validate whole four-card evaluations and actual use of both model stages")
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     descriptions = {e["name"]: describe(e) for e in manifest["experiments"]}
+    if args.whole_evaluations:
+        for entry in descriptions.values():
+            paths = [ROOT / p for p in entry["runs"]]
+            entry["whole_evaluations"] = evaluation_medians(paths)
+            keys = ("card", "source_sha256", "total", "sum_best_scores", "required_missing", "required_penalty",
+                    "uniformity_penalty", "report_settlement", "observation_request_reward", "wall_seconds",
+                    "runner_seconds", "model_attempts", "model_failed_attempts", "model_seconds",
+                    "model_stages_applied", "termination_reason", "planner_errors", "validation_errors")
+            entry["card_runs"] = [{"evaluation": path.name, **{key: run[key] for key in keys}}
+                                  for path in paths
+                                  for run in json.loads((path / "summary.json").read_text(encoding="utf-8"))["runs"]]
     comparisons = {}
     for name, entry in descriptions.items():
         if entry.get("baseline"):
             baseline = descriptions[entry["baseline"]]
-            comparisons[name] = compare(load([ROOT / p for p in baseline["runs"]]), load([ROOT / p for p in entry["runs"]]))
+            if args.whole_evaluations:
+                comparisons[name] = compare_evaluations([ROOT / p for p in baseline["runs"]], [ROOT / p for p in entry["runs"]])
+            else:
+                comparisons[name] = compare(load([ROOT / p for p in baseline["runs"]]), load([ROOT / p for p in entry["runs"]]))
+    selected = descriptions[manifest["selected"]]
+    if args.whole_evaluations and (not all(e["all_complete_same_source"] for e in descriptions.values())
+                                  or not comparisons.get(selected["name"], {}).get("accepted")):
+        raise ValueError("The selected candidate must pass both real-evaluation gates with verified frozen sources")
     report = {"note": "Real Kimi; local L1-L4 only, not platform or hidden cards. Components are independently summarized medians.",
               "selected": manifest["selected"], "experiments": descriptions, "comparisons": comparisons}
     args.out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

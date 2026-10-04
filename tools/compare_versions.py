@@ -40,12 +40,47 @@ def compare(baseline, candidate):
             "needs_paired_repeats": needs_repeat, "accepted": accepted, "all_complete": complete}
 
 
+def evaluation_medians(paths):
+    """Preserve each four-card evaluation before taking medians."""
+    evaluations = []
+    for path in paths:
+        runs = json.loads((path / "summary.json").read_text(encoding="utf-8"))["runs"]
+        if len(runs) != 4 or {r["card"] for r in runs} != {"L1", "L2", "L3", "L4"}:
+            raise ValueError("each evaluation must contain exactly four distinct cards")
+        evaluations.append({"evaluation": path.name,
+                            "mean": statistics.mean(r["total"] for r in runs),
+                            "minimum": min(r["total"] for r in runs),
+                            "required_missing_total": sum(r["required_missing"] for r in runs)})
+    return {"samples": len(evaluations), "evaluations": evaluations,
+            **{key: statistics.median(row[key] for row in evaluations)
+               for key in ("mean", "minimum", "required_missing_total")}}
+
+
+def compare_evaluations(baseline_paths, candidate_paths):
+    baseline, candidate = load(baseline_paths), load(candidate_paths)
+    per_card = compare(baseline, candidate)
+    a, b = evaluation_medians(baseline_paths), evaluation_medians(candidate_paths)
+    stages = {"message_understanding", "plan_adaptation"}
+    real_stages = all(r.get("model_attempts", 0) > 0 and stages <= set(r.get("model_stages_applied", []))
+                      for groups in (baseline, candidate) for rows in groups.values() for r in rows)
+    complete = per_card["all_complete"] and real_stages
+    repeat = per_card["needs_paired_repeats"] or (
+        min(a["samples"], b["samples"]) < 3 and abs(b["mean"] - a["mean"]) / max(abs(a["mean"]), 1) < .02)
+    whole_ok = (b["mean"] >= a["mean"] and b["minimum"] >= a["minimum"]
+                and b["required_missing_total"] <= a["required_missing_total"])
+    return {**per_card, "per_card_accepted": per_card["accepted"],
+            "whole_evaluations": {"baseline": a, "candidate": b, "accepted": whole_ok},
+            "two_model_stages_verified": real_stages, "all_complete": complete,
+            "needs_paired_repeats": repeat,
+            "accepted": per_card["accepted"] and whole_ok and complete and not repeat}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--baseline", type=Path, nargs="+", required=True)
     parser.add_argument("--candidate", type=Path, nargs="+", required=True)
     args = parser.parse_args()
-    print(json.dumps(compare(load(args.baseline), load(args.candidate)), ensure_ascii=False, indent=2))
+    print(json.dumps(compare_evaluations(args.baseline, args.candidate), ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

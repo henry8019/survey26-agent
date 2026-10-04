@@ -1,6 +1,6 @@
-> Current project: [PROJECT.md](PROJECT.md). Real Kimi experiments, selected strategy and validation limits: [OPTIMIZATION.md](OPTIMIZATION.md). Package identity: [SUBMISSION_VERSION.json](SUBMISSION_VERSION.json).
+> 当前项目：[PROJECT.md](PROJECT.md)。当前调度策略及真实 Kimi 验证：[SCHEDULING.md](SCHEDULING.md)。提交版本信息：[SUBMISSION_VERSION.json](SUBMISSION_VERSION.json)。
 
-> 当前版本复盘及下一轮实验：[REVIEW.md](REVIEW.md)。可公开复核的评测摘要：[reports/optimization-summary.json](reports/optimization-summary.json)。
+> 当前评测证据：[reports/scheduling-optimization.json](reports/scheduling-optimization.json)。此前轮次与 v1 复盘：[OPTIMIZATION.md](OPTIMIZATION.md)、[REVIEW.md](REVIEW.md)。下文保留官方原始示例说明；当前行为和配置以 PROJECT.md 为准。
 
 # python-agent —— participant-agent-protocol-v4 的示例智能体
 

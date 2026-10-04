@@ -1,0 +1,44 @@
+{
+  "selected": "scheduling-anomaly-guard",
+  "experiments": [
+    {
+      "name": "scheduling-baseline",
+      "project": ".local/versions/scheduling-baseline-v1",
+      "runs": [
+        "run_output/scheduling-baseline-1",
+        "run_output/scheduling-baseline-2",
+        "run_output/scheduling-baseline-3"
+      ]
+    },
+    {
+      "name": "scheduling-rate-candidate",
+      "baseline": "scheduling-baseline",
+      "project": ".local/versions/scheduling-rate-candidate",
+      "runs": [
+        "run_output/scheduling-rate-candidate-1",
+        "run_output/scheduling-rate-candidate-2",
+        "run_output/scheduling-rate-candidate-3"
+      ]
+    },
+    {
+      "name": "scheduling-required-guard",
+      "baseline": "scheduling-baseline",
+      "project": ".local/versions/scheduling-required-guard",
+      "runs": [
+        "run_output/scheduling-required-guard-1",
+        "run_output/scheduling-required-guard-2",
+        "run_output/scheduling-required-guard-3"
+      ]
+    },
+    {
+      "name": "scheduling-anomaly-guard",
+      "baseline": "scheduling-baseline",
+      "project": ".local/versions/scheduling-anomaly-guard",
+      "runs": [
+        "run_output/scheduling-anomaly-guard-1",
+        "run_output/scheduling-anomaly-guard-2",
+        "run_output/scheduling-anomaly-guard-3"
+      ]
+    }
+  ]
+}

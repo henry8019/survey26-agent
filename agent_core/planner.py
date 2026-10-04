@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from datetime import timedelta
 import math
+from typing import NamedTuple
 
 from .geometry import (
     Moon,
@@ -36,6 +37,7 @@ MIN_VISIBLE_SECONDS = 600
 NEIGHBOUR_RADIUS_DEG = 2.1
 ANCHORS = 6
 ANCHOR_POOL = 300
+POINTING_PLANS = 4
 CLOSED_KINDS = {"rain", "storm"}
 BLOCKING_KINDS = {"terrain_obstruction", "rocket_launch"}
 DIRECTION_AZ = {"N": 0.0, "NE": 45.0, "E": 90.0, "SE": 135.0, "S": 180.0,
@@ -75,6 +77,12 @@ def _bulletin_text(notices: list) -> str:
     if not notices:
         return "clear (no active notices)"
     return "; ".join(f"{n.get('event_kind')} {n.get('direction')}" for n in notices)
+
+
+class ExposurePlan(NamedTuple):
+    action: dict
+    predictions: dict
+    gain_rate: float
 
 
 class Planner:
@@ -449,10 +457,10 @@ class Planner:
         middle = (self.grid.side - 1) / 2
         central = sorted(range(self.grid.n), key=lambda f: sum(abs(v) for v in self.grid.fiber_center(f)))[:min(4, self.grid.n)]
         fibers = range(self.grid.n) if state.fast_level < 2 else central
-        best = None  # (total, c_alt, c_az, chosen)
+        pointings = []  # Best geometric placement for each searched anchor.
         tried = 0
         for _, anchor in anchors:
-            if tried >= n_anchors and best is not None:
+            if tried >= n_anchors and pointings:
                 break
             if tried >= n_anchors + 8:
                 break
@@ -460,6 +468,7 @@ class Planner:
             a_alt, a_az = altaz(anchor)
             near = [j for j in state.neighbours(state.ra[anchor], state.dec[anchor], math.degrees(math.atan(math.sqrt(2) * math.radians(self.grid.fov)))) if j in visible]
             near_values = {j: achievable(j) for j in near}
+            anchor_best = None
             for fiber in fibers:
                 d_north, d_east = self.grid.fiber_center(fiber)
                 c_alt, c_az = shift_altaz(a_alt, a_az, -d_north, -d_east)
@@ -485,14 +494,60 @@ class Planner:
                 if not chosen:
                     continue
                 total = sum(score for score, _, _ in chosen.values())
-                if best is None or total > best[0]:
-                    best = (total, c_alt, c_az, chosen)
-        if best is None:
+                if anchor_best is None or total > anchor_best[0]:
+                    anchor_best = (total, c_alt, c_az, chosen)
+            if anchor_best is not None:
+                pointings.append(anchor_best)
+        if not pointings:
             return None
-        _, c_alt, c_az, chosen = best
-        return self._finish_plan(now, lst, c_alt, c_az, chosen, seconds_left, moon, altaz, hours, night_index)
+        pointings.sort(key=lambda row: -row[0])
+        limit = 1 if state.fast_level >= 2 else 2 if state.fast_level else POINTING_PLANS
+        evidence = state.fault_evidence()
+        quality_guard = state.force_program is not None or (evidence is not None and evidence.drop < .65)
+        # The same observations feed the quality estimator and fault detector.
+        # During their existing anomaly phase, preserve the original sampling
+        # policy instead of changing both scheduling and diagnostic evidence.
+        if quality_guard:
+            limit = 1
+        seen = set()
+        evaluated = []
+        for total, c_alt, c_az, chosen in pointings:
+            signature = tuple((fiber, row[1]) for fiber, row in sorted(chosen.items()))
+            if signature in seen:
+                continue
+            seen.add(signature)
+            exposure = self._evaluate_pointing(now, lst, c_alt, c_az, chosen, seconds_left, moon, altaz)
+            if exposure is not None:
+                evaluated.append((total, exposure))
+            if len(seen) >= limit:
+                break
+        if not evaluated:
+            return None
+        # Treat the original pointing's achievable required completions as hard
+        # constraints. A higher local science rate must not discard them.
+        needed = self._required_completion_predictions(evaluated[0][1].action, now)
+        eligible = []
+        for i, (_, trial) in enumerate(evaluated):
+            provided = self._required_completion_predictions(trial.action, now)
+            if all(provided.get(target, 0) + 1e-9 >= factor for target, factor in needed.items()):
+                eligible.append(i)
+        winner = max(eligible, key=lambda i: (evaluated[i][1].gain_rate, -i))
+        exposure = evaluated[winner][1]
+        self.trace.write({"event": "pointing_selection", "now_utc": format_utc(now),
+                          "forced_request": self._forced_request is not None,
+                          "evaluated": len(evaluated), "selected_rank": winner,
+                          "eligible": len(eligible), "protected_required": len(needed),
+                          "quality_guard": quality_guard,
+                          "rates": [row[1].gain_rate for row in evaluated],
+                          "durations": [row[1].action["duration_seconds"] for row in evaluated]})
+        return self._commit_exposure(exposure, now, night_index)
 
     def _finish_plan(self, now, lst, c_alt, c_az, chosen, seconds_left, moon, altaz, hours, night_index):
+        exposure = self._evaluate_pointing(now, lst, c_alt, c_az, chosen, seconds_left, moon, altaz)
+        return self._commit_exposure(exposure, now, night_index) if exposure is not None else None
+
+    def _evaluate_pointing(self, now, lst, c_alt, c_az, chosen, seconds_left, moon, altaz):
+        """Size an exposure without changing feedback predictions or progress."""
         state = self.state
         scoring = state.scoring
         c_ra, c_dec = altaz_to_radec(c_alt, c_az, lst, state.lat)
@@ -568,23 +623,28 @@ class Planner:
         assignments = {str(fiber): state.ids[item["i"]] for fiber, item in info.items() if item["up"] >= duration}
 
         clean = not state.all_sky_notice()
-        state.pending.clear()
-        state.pending_action_index = self._current_action_index
+        predictions = {}
         for fiber, item in info.items():
             if str(fiber) in assignments:
-                state.pending[state.ids[item["i"]]] = PendingPrediction(
+                predictions[state.ids[item["i"]]] = PendingPrediction(
                     model=item["model"], band_model=item["model"] / 0.95, alt=item["alt"], az=item["az"],
                     clean=clean and self._direction_factor(item["alt"], item["az"], use_model=False) >= 1.0,
                 )
-        state.pending_program = program
-        state.pending_duration = duration
-        state.pending_start = now
-        state.pending_night = night_index
-
-        return {
+        action = {
             "action": "observe",
             "pointing": {"alt_deg": c_alt, "az_deg": c_az},
             "assignments": assignments,
             "duration_seconds": duration,
             "program": program,
         }
+        return ExposurePlan(action, predictions, best[0])
+
+    def _commit_exposure(self, exposure, now, night_index):
+        state = self.state
+        state.pending = dict(exposure.predictions)
+        state.pending_action_index = self._current_action_index
+        state.pending_program = exposure.action["program"]
+        state.pending_duration = exposure.action["duration_seconds"]
+        state.pending_start = now
+        state.pending_night = night_index
+        return exposure.action

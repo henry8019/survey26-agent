@@ -1,7 +1,8 @@
 {
-  "selected": "round4-selected",
-  "frozen_project": ".local/versions/round4-required-guard",
-  "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+  "selected": "scheduling-anomaly-guard",
+  "git_reference": "validated-v2",
+  "frozen_project": ".local/versions/scheduling-anomaly-guard",
+  "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
   "source_files": {
     "agent.py": "3c51d8f38be68d54e39443dbe40ce2cbadd6c451b67f0bf1c0ce611ecbd718a6",
     "observer.project.json": "373d448f4193fbb5364edb347cc99d2468de98db253267e1267c26ac98e6c43b",
@@ -11,13 +12,15 @@
     "agent_core/geometry.py": "4dff3dc2d6f449d43276747b38ebcc64275df43bfdbc5c10da10dea0fe37a73b",
     "agent_core/llm_client.py": "273fd5822fa475bbd0c832cdb563eab99b00f7ac309512439e8ed24cc177bbf3",
     "agent_core/memory.py": "50b85b4a71e0450b54eb9487d40da11fddc8c41199612fba3810ddddf0e8bbfa",
-    "agent_core/planner.py": "03ccd2f069105c2e877d59f93153929f4a4aa002f522b2e44a23aeb79214ba54",
+    "agent_core/planner.py": "764b7520b26cbbc701d12069ffe7bfc33f4516c45f068ff538c97006e1907f77",
     "agent_core/protocol.py": "470c26cae91e2d40fd629d31d024338e32a2ca645cec669cace2433f7e76edcf",
     "agent_core/requests.py": "aa23973fa0b736996175b53381da990728e394e7849b9ada4a60389eccf23c58",
     "agent_core/scoring.py": "9634425e655903a3fd42875fa6d1d0a79970cdf45430965f6cf4b9086e43882c",
     "agent_core/state.py": "ef35ecc4686e34cbab0133252ba273e68a82fa23d6bb7b9e9ffdb6df2c9966c4",
     "agent_core/validation.py": "3cb5947a9ebf8d5c5de1b611ad40ad8cbdbc8b21c418b13a33a1c93896f00759"
   },
+  "previous_source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+  "previous_git_reference": "validated-v1",
   "model_configuration": {
     "call_timeout_seconds": 8.0,
     "total_budget_seconds": 150.0,
@@ -31,22 +34,34 @@
     "wallclock_limit_seconds": 900
   },
   "real_evaluation_runs": [
-    "run_output/optimization-round4-guard-1",
-    "run_output/optimization-round4-guard-2",
-    "run_output/optimization-round4-guard-3"
+    "run_output/scheduling-anomaly-guard-1",
+    "run_output/scheduling-anomaly-guard-2",
+    "run_output/scheduling-anomaly-guard-3"
   ],
   "samples_per_card": 3,
-  "median_mean": 4504.9170030000005,
-  "median_minimum": 3904.482484,
-  "median_required_missing_total": 18,
-  "max_model_http_attempts": 31,
-  "max_model_seconds": 88.139,
-  "max_wall_seconds": 116.625,
-  "unit_tests_passed": 65,
+  "median_mean": 4603.4482215,
+  "median_minimum": 3935.053165,
+  "median_required_missing_total": 16,
+  "whole_evaluation_medians": {
+    "mean": 4598.92551375,
+    "minimum": 3935.053165,
+    "required_missing_total": 16
+  },
+  "acceptance": {
+    "per_card": true,
+    "whole_evaluation": true,
+    "two_model_stages_verified": true,
+    "accepted": true
+  },
+  "max_model_http_attempts": 33,
+  "max_model_seconds": 131.454,
+  "max_wall_seconds": 164.61,
+  "unit_tests_passed": 72,
   "local_real_card_fibers": 16,
-  "rejected_rounds": [
-    "round3-rejected",
-    "round4-initial-rejected"
+  "rejected_scheduling_candidates": [
+    "scheduling-rate-candidate",
+    "scheduling-required-guard"
   ],
+  "evidence": "reports/scheduling-optimization.json",
   "platform_submitted": false
 }

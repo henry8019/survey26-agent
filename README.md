@@ -1,6 +1,6 @@
-> Current project: [PROJECT.md](PROJECT.md). Real Kimi experiments, selected strategy and validation limits: [OPTIMIZATION.md](OPTIMIZATION.md). Package identity: [SUBMISSION_VERSION.json](SUBMISSION_VERSION.json).
+> Current project: [PROJECT.md](PROJECT.md). Selected scheduling strategy and real Kimi validation: [SCHEDULING.md](SCHEDULING.md). Package identity: [SUBMISSION_VERSION.json](SUBMISSION_VERSION.json).
 
-> Current-version retrospective and next experiments: [REVIEW.md](REVIEW.md). Portable benchmark evidence: [reports/optimization-summary.json](reports/optimization-summary.json).
+> Current benchmark evidence: [reports/scheduling-optimization.json](reports/scheduling-optimization.json). Earlier rounds and the v1 retrospective: [OPTIMIZATION.md](OPTIMIZATION.md), [REVIEW.md](REVIEW.md). The example documentation below is preserved from upstream; use PROJECT.md for current behavior and configuration.
 
 # python-agent -- an example agent for participant-agent-protocol-v4
 

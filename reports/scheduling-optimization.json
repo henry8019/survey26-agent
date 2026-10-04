@@ -1,0 +1,2686 @@
+{
+  "note": "Real Kimi; local L1-L4 only, not platform or hidden cards. Components are independently summarized medians.",
+  "selected": "scheduling-anomaly-guard",
+  "experiments": {
+    "scheduling-baseline": {
+      "name": "scheduling-baseline",
+      "project": ".local/versions/scheduling-baseline-v1",
+      "runs": [
+        "run_output/scheduling-baseline-1",
+        "run_output/scheduling-baseline-2",
+        "run_output/scheduling-baseline-3"
+      ],
+      "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+      "model_configuration": {
+        "call_timeout_seconds": 8.0,
+        "total_budget_seconds": 150.0,
+        "max_calls": 40,
+        "max_retries": 2,
+        "model": "k3",
+        "base_url": "https://api.kimi.com/coding/v1",
+        "reasoning_effort": "none",
+        "max_tokens": 250,
+        "temperature": "provider default",
+        "wallclock_limit_seconds": 900
+      },
+      "all_complete_same_source": true,
+      "samples_per_card": 3,
+      "cards": {
+        "L1": {
+          "total": 4606.244372,
+          "sum_best_scores": 4657.555024,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -1.310652,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 129.125,
+          "model_attempts": 30,
+          "model_seconds": 100.373
+        },
+        "L2": {
+          "total": 4985.029235,
+          "sum_best_scores": 4987.372417,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -2.343182,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 111.281,
+          "model_attempts": 30,
+          "model_seconds": 80.966
+        },
+        "L3": {
+          "total": 4523.911921,
+          "sum_best_scores": 4577.279448,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -4.50881,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 122.813,
+          "model_attempts": 31,
+          "model_seconds": 93.263
+        },
+        "L4": {
+          "total": 3904.482484,
+          "sum_best_scores": 4212.396521,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -7.914037,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 124.875,
+          "model_attempts": 31,
+          "model_seconds": 98.06
+        }
+      },
+      "mean": 4504.9170030000005,
+      "minimum": 3904.482484,
+      "required_missing_total": 18,
+      "model_attempts_max": 32,
+      "model_seconds_max": 113.442,
+      "wall_seconds_max": 142.766,
+      "traces": [
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-baseline-1\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 14,
+          "request_bundles": 12,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-baseline-2\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 15,
+          "request_bundles": 14,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-baseline-3\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 16,
+          "request_bundles": 14,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-baseline-1\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 17,
+          "request_bundles": 29,
+          "request_executions": 7,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-baseline-2\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 18,
+          "request_bundles": 29,
+          "request_executions": 7,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-baseline-3\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 19,
+          "request_bundles": 27,
+          "request_executions": 7,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-baseline-1\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 24,
+          "request_bundles": 14,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-baseline-2\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 23,
+          "request_bundles": 15,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-baseline-3\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 22,
+          "request_bundles": 18,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-baseline-1\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 34,
+          "request_bundles": 20,
+          "request_executions": 8,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-baseline-2\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 34,
+          "request_bundles": 21,
+          "request_executions": 8,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-baseline-3\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 32,
+          "request_bundles": 21,
+          "request_executions": 8,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 0,
+          "pointing_switches": 0,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        }
+      ],
+      "whole_evaluations": {
+        "samples": 3,
+        "evaluations": [
+          {
+            "evaluation": "scheduling-baseline-1",
+            "mean": 4520.10990575,
+            "minimum": 3924.33965,
+            "required_missing_total": 18
+          },
+          {
+            "evaluation": "scheduling-baseline-2",
+            "mean": 4502.59436375,
+            "minimum": 3904.482484,
+            "required_missing_total": 18
+          },
+          {
+            "evaluation": "scheduling-baseline-3",
+            "mean": 4495.3318625,
+            "minimum": 3904.482484,
+            "required_missing_total": 18
+          }
+        ],
+        "mean": 4502.59436375,
+        "minimum": 3904.482484,
+        "required_missing_total": 18
+      },
+      "card_runs": [
+        {
+          "evaluation": "scheduling-baseline-1",
+          "card": "L1",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 4639.968238,
+          "sum_best_scores": 4691.101759,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -1.133522,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 110.891,
+          "runner_seconds": 111.094,
+          "model_attempts": 30,
+          "model_failed_attempts": 2,
+          "model_seconds": 81.313,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-baseline-1",
+          "card": "L2",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 4985.029235,
+          "sum_best_scores": 4987.372417,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -2.343182,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 111.281,
+          "runner_seconds": 111.485,
+          "model_attempts": 30,
+          "model_failed_attempts": 1,
+          "model_seconds": 80.966,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-baseline-1",
+          "card": "L3",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 4531.1025,
+          "sum_best_scores": 4585.611311,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -4.50881,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 122.813,
+          "runner_seconds": 123.0,
+          "model_attempts": 31,
+          "model_failed_attempts": 5,
+          "model_seconds": 93.263,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-baseline-1",
+          "card": "L4",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 3924.33965,
+          "sum_best_scores": 4230.476648,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -6.136998,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 132.75,
+          "runner_seconds": 132.937,
+          "model_attempts": 32,
+          "model_failed_attempts": 5,
+          "model_seconds": 105.987,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-baseline-2",
+          "card": "L1",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 4606.244372,
+          "sum_best_scores": 4657.555024,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -1.310652,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 129.125,
+          "runner_seconds": 129.312,
+          "model_attempts": 30,
+          "model_failed_attempts": 3,
+          "model_seconds": 100.373,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-baseline-2",
+          "card": "L2",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 4985.029235,
+          "sum_best_scores": 4987.372417,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -2.343182,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 105.234,
+          "runner_seconds": 105.422,
+          "model_attempts": 30,
+          "model_failed_attempts": 2,
+          "model_seconds": 75.675,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-baseline-2",
+          "card": "L3",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 4514.621364,
+          "sum_best_scores": 4569.226843,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -4.605479,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 118.64,
+          "runner_seconds": 118.797,
+          "model_attempts": 31,
+          "model_failed_attempts": 4,
+          "model_seconds": 88.906,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-baseline-2",
+          "card": "L4",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 3904.482484,
+          "sum_best_scores": 4212.396521,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -7.914037,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 124.875,
+          "runner_seconds": 125.046,
+          "model_attempts": 31,
+          "model_failed_attempts": 3,
+          "model_seconds": 98.06,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-baseline-3",
+          "card": "L1",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 4606.244372,
+          "sum_best_scores": 4657.555024,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -1.310652,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 142.766,
+          "runner_seconds": 142.937,
+          "model_attempts": 31,
+          "model_failed_attempts": 5,
+          "model_seconds": 113.442,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-baseline-3",
+          "card": "L2",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 4946.688673,
+          "sum_best_scores": 4948.24376,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -1.555088,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 128.25,
+          "runner_seconds": 128.422,
+          "model_attempts": 30,
+          "model_failed_attempts": 4,
+          "model_seconds": 99.777,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-baseline-3",
+          "card": "L3",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 4523.911921,
+          "sum_best_scores": 4577.279448,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -3.367527,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 124.609,
+          "runner_seconds": 124.781,
+          "model_attempts": 31,
+          "model_failed_attempts": 3,
+          "model_seconds": 94.593,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-baseline-3",
+          "card": "L4",
+          "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+          "total": 3904.482484,
+          "sum_best_scores": 4212.396521,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -7.914037,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 105.328,
+          "runner_seconds": 105.485,
+          "model_attempts": 30,
+          "model_failed_attempts": 0,
+          "model_seconds": 78.265,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        }
+      ]
+    },
+    "scheduling-rate-candidate": {
+      "name": "scheduling-rate-candidate",
+      "baseline": "scheduling-baseline",
+      "project": ".local/versions/scheduling-rate-candidate",
+      "runs": [
+        "run_output/scheduling-rate-candidate-1",
+        "run_output/scheduling-rate-candidate-2",
+        "run_output/scheduling-rate-candidate-3"
+      ],
+      "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+      "model_configuration": {
+        "call_timeout_seconds": 8.0,
+        "total_budget_seconds": 150.0,
+        "max_calls": 40,
+        "max_retries": 2,
+        "model": "k3",
+        "base_url": "https://api.kimi.com/coding/v1",
+        "reasoning_effort": "none",
+        "max_tokens": 250,
+        "temperature": "provider default",
+        "wallclock_limit_seconds": 900
+      },
+      "all_complete_same_source": true,
+      "samples_per_card": 3,
+      "cards": {
+        "L1": {
+          "total": 4755.482873,
+          "sum_best_scores": 4756.520242,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.037368,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 137.922,
+          "model_attempts": 31,
+          "model_seconds": 104.39
+        },
+        "L2": {
+          "total": 5095.027913,
+          "sum_best_scores": 5148.964953,
+          "required_missing": 5,
+          "required_penalty": -250.0,
+          "uniformity_penalty": -3.937039,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 131.688,
+          "model_attempts": 31,
+          "model_seconds": 96.734
+        },
+        "L3": {
+          "total": 4578.755116,
+          "sum_best_scores": 4632.250554,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -3.495437,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 108.453,
+          "model_attempts": 30,
+          "model_seconds": 73.893
+        },
+        "L4": {
+          "total": 3566.255226,
+          "sum_best_scores": 4122.441292,
+          "required_missing": 13,
+          "required_penalty": -650.0,
+          "uniformity_penalty": -6.186065,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 131.641,
+          "model_attempts": 31,
+          "model_seconds": 101.596
+        }
+      },
+      "mean": 4498.880282,
+      "minimum": 3566.255226,
+      "required_missing_total": 23,
+      "model_attempts_max": 32,
+      "model_seconds_max": 113.078,
+      "wall_seconds_max": 145.5,
+      "traces": [
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-rate-candidate-1\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 16,
+          "request_bundles": 10,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 893,
+          "pointing_switches": 436,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-rate-candidate-2\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 15,
+          "request_bundles": 8,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 910,
+          "pointing_switches": 446,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-rate-candidate-3\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 14,
+          "request_bundles": 8,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 910,
+          "pointing_switches": 446,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-rate-candidate-1\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 19,
+          "request_bundles": 28,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 932,
+          "pointing_switches": 460,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-rate-candidate-2\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 22,
+          "request_bundles": 33,
+          "request_executions": 5,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 914,
+          "pointing_switches": 460,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-rate-candidate-3\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 19,
+          "request_bundles": 28,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 932,
+          "pointing_switches": 460,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-rate-candidate-1\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 19,
+          "request_bundles": 17,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 921,
+          "pointing_switches": 459,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-rate-candidate-2\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 19,
+          "request_bundles": 17,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 921,
+          "pointing_switches": 459,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-rate-candidate-3\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 23,
+          "request_bundles": 18,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 919,
+          "pointing_switches": 443,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-rate-candidate-1\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 32,
+          "request_bundles": 13,
+          "request_executions": 7,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 792,
+          "pointing_switches": 395,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-rate-candidate-2\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 34,
+          "request_bundles": 13,
+          "request_executions": 7,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 792,
+          "pointing_switches": 395,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-rate-candidate-3\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 34,
+          "request_bundles": 13,
+          "request_executions": 7,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 792,
+          "pointing_switches": 395,
+          "required_protected_selections": 0,
+          "quality_guard_selections": 0
+        }
+      ],
+      "whole_evaluations": {
+        "samples": 3,
+        "evaluations": [
+          {
+            "evaluation": "scheduling-rate-candidate-1",
+            "mean": 4493.1967,
+            "minimum": 3566.255226,
+            "required_missing_total": 23
+          },
+          {
+            "evaluation": "scheduling-rate-candidate-2",
+            "mean": 4498.46459125,
+            "minimum": 3566.255226,
+            "required_missing_total": 22
+          },
+          {
+            "evaluation": "scheduling-rate-candidate-3",
+            "mean": 4510.99051675,
+            "minimum": 3566.255226,
+            "required_missing_total": 22
+          }
+        ],
+        "mean": 4498.46459125,
+        "minimum": 3566.255226,
+        "required_missing_total": 22
+      },
+      "card_runs": [
+        {
+          "evaluation": "scheduling-rate-candidate-1",
+          "card": "L1",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 4732.748545,
+          "sum_best_scores": 4733.669998,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -0.921453,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 145.5,
+          "runner_seconds": 145.703,
+          "model_attempts": 32,
+          "model_failed_attempts": 6,
+          "model_seconds": 113.078,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-rate-candidate-1",
+          "card": "L2",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 5095.027913,
+          "sum_best_scores": 5148.964953,
+          "required_missing": 5,
+          "required_penalty": -250.0,
+          "uniformity_penalty": -3.937039,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 131.688,
+          "runner_seconds": 131.906,
+          "model_attempts": 31,
+          "model_failed_attempts": 3,
+          "model_seconds": 96.734,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-rate-candidate-1",
+          "card": "L3",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 4578.755116,
+          "sum_best_scores": 4632.250554,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -3.495437,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 104.937,
+          "runner_seconds": 105.109,
+          "model_attempts": 30,
+          "model_failed_attempts": 0,
+          "model_seconds": 70.199,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-rate-candidate-1",
+          "card": "L4",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 3566.255226,
+          "sum_best_scores": 4122.441292,
+          "required_missing": 13,
+          "required_penalty": -650.0,
+          "uniformity_penalty": -6.186065,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 114.468,
+          "runner_seconds": 114.641,
+          "model_attempts": 31,
+          "model_failed_attempts": 0,
+          "model_seconds": 84.47,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-rate-candidate-2",
+          "card": "L1",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 4755.482873,
+          "sum_best_scores": 4756.520242,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.037368,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 137.922,
+          "runner_seconds": 138.156,
+          "model_attempts": 31,
+          "model_failed_attempts": 4,
+          "model_seconds": 104.39,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-rate-candidate-2",
+          "card": "L2",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 5093.36515,
+          "sum_best_scores": 5098.013755,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -4.648606,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 129.235,
+          "runner_seconds": 129.453,
+          "model_attempts": 31,
+          "model_failed_attempts": 5,
+          "model_seconds": 94.561,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-rate-candidate-2",
+          "card": "L3",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 4578.755116,
+          "sum_best_scores": 4632.250554,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -3.495437,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 108.453,
+          "runner_seconds": 108.641,
+          "model_attempts": 30,
+          "model_failed_attempts": 0,
+          "model_seconds": 73.893,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-rate-candidate-2",
+          "card": "L4",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 3566.255226,
+          "sum_best_scores": 4122.441292,
+          "required_missing": 13,
+          "required_penalty": -650.0,
+          "uniformity_penalty": -6.186065,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 131.641,
+          "runner_seconds": 131.812,
+          "model_attempts": 31,
+          "model_failed_attempts": 2,
+          "model_seconds": 101.596,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-rate-candidate-3",
+          "card": "L1",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 4755.482873,
+          "sum_best_scores": 4756.520242,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.037368,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 131.672,
+          "runner_seconds": 131.875,
+          "model_attempts": 31,
+          "model_failed_attempts": 3,
+          "model_seconds": 98.236,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-rate-candidate-3",
+          "card": "L2",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 5095.027913,
+          "sum_best_scores": 5148.964953,
+          "required_missing": 5,
+          "required_penalty": -250.0,
+          "uniformity_penalty": -3.937039,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 137.891,
+          "runner_seconds": 138.094,
+          "model_attempts": 31,
+          "model_failed_attempts": 3,
+          "model_seconds": 102.079,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-rate-candidate-3",
+          "card": "L3",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 4627.196055,
+          "sum_best_scores": 4630.776905,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -3.58085,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 128.656,
+          "runner_seconds": 128.828,
+          "model_attempts": 31,
+          "model_failed_attempts": 4,
+          "model_seconds": 94.185,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-rate-candidate-3",
+          "card": "L4",
+          "source_sha256": "7563ae9e29ce0380c7b859227ffb539ab387c1411df09141e0342c4433ff81ae",
+          "total": 3566.255226,
+          "sum_best_scores": 4122.441292,
+          "required_missing": 13,
+          "required_penalty": -650.0,
+          "uniformity_penalty": -6.186065,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 136.797,
+          "runner_seconds": 136.968,
+          "model_attempts": 32,
+          "model_failed_attempts": 3,
+          "model_seconds": 106.081,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        }
+      ]
+    },
+    "scheduling-required-guard": {
+      "name": "scheduling-required-guard",
+      "baseline": "scheduling-baseline",
+      "project": ".local/versions/scheduling-required-guard",
+      "runs": [
+        "run_output/scheduling-required-guard-1",
+        "run_output/scheduling-required-guard-2",
+        "run_output/scheduling-required-guard-3"
+      ],
+      "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+      "model_configuration": {
+        "call_timeout_seconds": 8.0,
+        "total_budget_seconds": 150.0,
+        "max_calls": 40,
+        "max_retries": 2,
+        "model": "k3",
+        "base_url": "https://api.kimi.com/coding/v1",
+        "reasoning_effort": "none",
+        "max_tokens": 250,
+        "temperature": "provider default",
+        "wallclock_limit_seconds": 900
+      },
+      "all_complete_same_source": true,
+      "samples_per_card": 3,
+      "cards": {
+        "L1": {
+          "total": 4729.390258,
+          "sum_best_scores": 4730.94635,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.542434,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 126.906,
+          "model_attempts": 31,
+          "model_seconds": 94.187
+        },
+        "L2": {
+          "total": 3369.61096,
+          "sum_best_scores": 4022.008093,
+          "required_missing": 15,
+          "required_penalty": -750.0,
+          "uniformity_penalty": -2.397133,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 159.547,
+          "model_attempts": 40,
+          "model_seconds": 131.045
+        },
+        "L3": {
+          "total": 4688.067835,
+          "sum_best_scores": 4691.398211,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -3.330376,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 134.719,
+          "model_attempts": 32,
+          "model_seconds": 98.891
+        },
+        "L4": {
+          "total": 3935.053165,
+          "sum_best_scores": 4244.567052,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -9.513887,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 121.516,
+          "model_attempts": 29,
+          "model_seconds": 89.706
+        }
+      },
+      "mean": 4180.5305545,
+      "minimum": 3369.61096,
+      "required_missing_total": 27,
+      "model_attempts_max": 40,
+      "model_seconds_max": 136.345,
+      "wall_seconds_max": 165.047,
+      "traces": [
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-required-guard-1\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 15,
+          "request_bundles": 12,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 888,
+          "pointing_switches": 324,
+          "required_protected_selections": 257,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-required-guard-2\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 14,
+          "request_bundles": 13,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 881,
+          "pointing_switches": 319,
+          "required_protected_selections": 257,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-required-guard-3\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 17,
+          "request_bundles": 12,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 888,
+          "pointing_switches": 316,
+          "required_protected_selections": 257,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-required-guard-1\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 29,
+          "request_bundles": 24,
+          "request_executions": 7,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 751,
+          "pointing_switches": 209,
+          "required_protected_selections": 280,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-required-guard-2\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 27,
+          "request_bundles": 23,
+          "request_executions": 7,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 744,
+          "pointing_switches": 187,
+          "required_protected_selections": 279,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-required-guard-3\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 30,
+          "request_bundles": 24,
+          "request_executions": 7,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 751,
+          "pointing_switches": 209,
+          "required_protected_selections": 280,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-required-guard-1\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 22,
+          "request_bundles": 14,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 925,
+          "pointing_switches": 318,
+          "required_protected_selections": 312,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-required-guard-2\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 22,
+          "request_bundles": 14,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 925,
+          "pointing_switches": 318,
+          "required_protected_selections": 312,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-required-guard-3\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 22,
+          "request_bundles": 14,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 925,
+          "pointing_switches": 318,
+          "required_protected_selections": 312,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-required-guard-1\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 32,
+          "request_bundles": 16,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 847,
+          "pointing_switches": 258,
+          "required_protected_selections": 370,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-required-guard-2\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 32,
+          "request_bundles": 16,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 847,
+          "pointing_switches": 258,
+          "required_protected_selections": 370,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-required-guard-3\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 34,
+          "request_bundles": 16,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 847,
+          "pointing_switches": 258,
+          "required_protected_selections": 370,
+          "quality_guard_selections": 0
+        }
+      ],
+      "whole_evaluations": {
+        "samples": 3,
+        "evaluations": [
+          {
+            "evaluation": "scheduling-required-guard-1",
+            "mean": 4184.84124025,
+            "minimum": 3369.61096,
+            "required_missing_total": 27
+          },
+          {
+            "evaluation": "scheduling-required-guard-2",
+            "mean": 4166.82873425,
+            "minimum": 3324.762014,
+            "required_missing_total": 28
+          },
+          {
+            "evaluation": "scheduling-required-guard-3",
+            "mean": 4180.5305545,
+            "minimum": 3369.61096,
+            "required_missing_total": 27
+          }
+        ],
+        "mean": 4180.5305545,
+        "minimum": 3369.61096,
+        "required_missing_total": 27
+      },
+      "card_runs": [
+        {
+          "evaluation": "scheduling-required-guard-1",
+          "card": "L1",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 4746.633001,
+          "sum_best_scores": 4747.792841,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.159839,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 125.25,
+          "runner_seconds": 125.469,
+          "model_attempts": 30,
+          "model_failed_attempts": 3,
+          "model_seconds": 92.564,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-required-guard-1",
+          "card": "L2",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 3369.61096,
+          "sum_best_scores": 4022.008093,
+          "required_missing": 15,
+          "required_penalty": -750.0,
+          "uniformity_penalty": -2.397133,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 165.047,
+          "runner_seconds": 165.25,
+          "model_attempts": 40,
+          "model_failed_attempts": 5,
+          "model_seconds": 136.345,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-required-guard-1",
+          "card": "L3",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 4688.067835,
+          "sum_best_scores": 4691.398211,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -3.330376,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 134.719,
+          "runner_seconds": 134.907,
+          "model_attempts": 32,
+          "model_failed_attempts": 3,
+          "model_seconds": 98.891,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-required-guard-1",
+          "card": "L4",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 3935.053165,
+          "sum_best_scores": 4244.567052,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -9.513887,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 108.75,
+          "runner_seconds": 108.937,
+          "model_attempts": 29,
+          "model_failed_attempts": 0,
+          "model_seconds": 76.596,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-required-guard-2",
+          "card": "L1",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 4719.431923,
+          "sum_best_scores": 4720.974357,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.542434,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 126.906,
+          "runner_seconds": 127.125,
+          "model_attempts": 31,
+          "model_failed_attempts": 3,
+          "model_seconds": 94.187,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-required-guard-2",
+          "card": "L2",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 3324.762014,
+          "sum_best_scores": 4026.868472,
+          "required_missing": 16,
+          "required_penalty": -800.0,
+          "uniformity_penalty": -2.106458,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 137.719,
+          "runner_seconds": 137.922,
+          "model_attempts": 40,
+          "model_failed_attempts": 3,
+          "model_seconds": 108.768,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-required-guard-2",
+          "card": "L3",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 4688.067835,
+          "sum_best_scores": 4691.398211,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -3.330376,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 126.906,
+          "runner_seconds": 127.109,
+          "model_attempts": 31,
+          "model_failed_attempts": 2,
+          "model_seconds": 91.298,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-required-guard-2",
+          "card": "L4",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 3935.053165,
+          "sum_best_scores": 4244.567052,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -9.513887,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 122.485,
+          "runner_seconds": 122.672,
+          "model_attempts": 30,
+          "model_failed_attempts": 1,
+          "model_seconds": 90.954,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-required-guard-3",
+          "card": "L1",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 4729.390258,
+          "sum_best_scores": 4730.94635,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.556092,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 132.5,
+          "runner_seconds": 132.688,
+          "model_attempts": 32,
+          "model_failed_attempts": 5,
+          "model_seconds": 100.046,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-required-guard-3",
+          "card": "L2",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 3369.61096,
+          "sum_best_scores": 4022.008093,
+          "required_missing": 15,
+          "required_penalty": -750.0,
+          "uniformity_penalty": -2.397133,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 159.547,
+          "runner_seconds": 159.735,
+          "model_attempts": 40,
+          "model_failed_attempts": 6,
+          "model_seconds": 131.045,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-required-guard-3",
+          "card": "L3",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 4688.067835,
+          "sum_best_scores": 4691.398211,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -3.330376,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 142.766,
+          "runner_seconds": 142.953,
+          "model_attempts": 32,
+          "model_failed_attempts": 3,
+          "model_seconds": 107.436,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-required-guard-3",
+          "card": "L4",
+          "source_sha256": "7f9ab477ec58b19ce602ec0767ec41739a68870cc79de6f7abf414ae945e9fa7",
+          "total": 3935.053165,
+          "sum_best_scores": 4244.567052,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -9.513887,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 121.516,
+          "runner_seconds": 121.688,
+          "model_attempts": 29,
+          "model_failed_attempts": 2,
+          "model_seconds": 89.706,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        }
+      ]
+    },
+    "scheduling-anomaly-guard": {
+      "name": "scheduling-anomaly-guard",
+      "baseline": "scheduling-baseline",
+      "project": ".local/versions/scheduling-anomaly-guard",
+      "runs": [
+        "run_output/scheduling-anomaly-guard-1",
+        "run_output/scheduling-anomaly-guard-2",
+        "run_output/scheduling-anomaly-guard-3"
+      ],
+      "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+      "model_configuration": {
+        "call_timeout_seconds": 8.0,
+        "total_budget_seconds": 150.0,
+        "max_calls": 40,
+        "max_retries": 2,
+        "model": "k3",
+        "base_url": "https://api.kimi.com/coding/v1",
+        "reasoning_effort": "none",
+        "max_tokens": 250,
+        "temperature": "provider default",
+        "wallclock_limit_seconds": 900
+      },
+      "all_complete_same_source": true,
+      "samples_per_card": 3,
+      "cards": {
+        "L1": {
+          "total": 4727.680807,
+          "sum_best_scores": 4728.79832,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.423131,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 135.265,
+          "model_attempts": 32,
+          "model_seconds": 103.423
+        },
+        "L2": {
+          "total": 5062.991079,
+          "sum_best_scores": 5065.79078,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -2.799701,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 127.64,
+          "model_attempts": 32,
+          "model_seconds": 94.622
+        },
+        "L3": {
+          "total": 4688.067835,
+          "sum_best_scores": 4691.398211,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -3.330376,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 135.75,
+          "model_attempts": 32,
+          "model_seconds": 101.888
+        },
+        "L4": {
+          "total": 3935.053165,
+          "sum_best_scores": 4244.567052,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -9.513887,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 137.891,
+          "model_attempts": 30,
+          "model_seconds": 106.047
+        }
+      },
+      "mean": 4603.4482215,
+      "minimum": 3935.053165,
+      "required_missing_total": 16,
+      "model_attempts_max": 33,
+      "model_seconds_max": 131.454,
+      "wall_seconds_max": 164.61,
+      "traces": [
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-anomaly-guard-1\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 15,
+          "request_bundles": 13,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 880,
+          "pointing_switches": 319,
+          "required_protected_selections": 257,
+          "quality_guard_selections": 35
+        },
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-anomaly-guard-2\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 16,
+          "request_bundles": 12,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 883,
+          "pointing_switches": 305,
+          "required_protected_selections": 257,
+          "quality_guard_selections": 38
+        },
+        {
+          "card": "L1",
+          "file": "run_output\\scheduling-anomaly-guard-3\\L1\\L1\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 18,
+          "request_bundles": 12,
+          "request_executions": 5,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 872,
+          "pointing_switches": 305,
+          "required_protected_selections": 257,
+          "quality_guard_selections": 35
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-anomaly-guard-1\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 22,
+          "request_bundles": 28,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 903,
+          "pointing_switches": 312,
+          "required_protected_selections": 294,
+          "quality_guard_selections": 32
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-anomaly-guard-2\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 21,
+          "request_bundles": 26,
+          "request_executions": 7,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 904,
+          "pointing_switches": 285,
+          "required_protected_selections": 294,
+          "quality_guard_selections": 32
+        },
+        {
+          "card": "L2",
+          "file": "run_output\\scheduling-anomaly-guard-3\\L2\\L2\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 24,
+          "request_bundles": 28,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 903,
+          "pointing_switches": 312,
+          "required_protected_selections": 294,
+          "quality_guard_selections": 32
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-anomaly-guard-1\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 24,
+          "request_bundles": 13,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 922,
+          "pointing_switches": 319,
+          "required_protected_selections": 310,
+          "quality_guard_selections": 1
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-anomaly-guard-2\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 22,
+          "request_bundles": 14,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 925,
+          "pointing_switches": 318,
+          "required_protected_selections": 312,
+          "quality_guard_selections": 1
+        },
+        {
+          "card": "L3",
+          "file": "run_output\\scheduling-anomaly-guard-3\\L3\\L3\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 22,
+          "request_bundles": 14,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 925,
+          "pointing_switches": 318,
+          "required_protected_selections": 312,
+          "quality_guard_selections": 1
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-anomaly-guard-1\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 35,
+          "request_bundles": 16,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 852,
+          "pointing_switches": 257,
+          "required_protected_selections": 371,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-anomaly-guard-2\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 34,
+          "request_bundles": 16,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 847,
+          "pointing_switches": 258,
+          "required_protected_selections": 370,
+          "quality_guard_selections": 0
+        },
+        {
+          "card": "L4",
+          "file": "run_output\\scheduling-anomaly-guard-3\\L4\\L4\\model_trace.jsonl",
+          "stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "advice_rejected": 34,
+          "request_bundles": 16,
+          "request_executions": 6,
+          "diagnostic_pairs": 0,
+          "pointing_selections": 847,
+          "pointing_switches": 258,
+          "required_protected_selections": 370,
+          "quality_guard_selections": 0
+        }
+      ],
+      "whole_evaluations": {
+        "samples": 3,
+        "evaluations": [
+          {
+            "evaluation": "scheduling-anomaly-guard-1",
+            "mean": 4598.92551375,
+            "minimum": 3913.510909,
+            "required_missing_total": 16
+          },
+          {
+            "evaluation": "scheduling-anomaly-guard-2",
+            "mean": 4607.00582975,
+            "minimum": 3935.053165,
+            "required_missing_total": 16
+          },
+          {
+            "evaluation": "scheduling-anomaly-guard-3",
+            "mean": 4597.53888425,
+            "minimum": 3935.053165,
+            "required_missing_total": 16
+          }
+        ],
+        "mean": 4598.92551375,
+        "minimum": 3935.053165,
+        "required_missing_total": 16
+      },
+      "card_runs": [
+        {
+          "evaluation": "scheduling-anomaly-guard-1",
+          "card": "L1",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 4727.680807,
+          "sum_best_scores": 4728.79832,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.117514,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 133.218,
+          "runner_seconds": 133.422,
+          "model_attempts": 32,
+          "model_failed_attempts": 3,
+          "model_seconds": 100.547,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-anomaly-guard-1",
+          "card": "L2",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 5062.991079,
+          "sum_best_scores": 5065.79078,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -2.799701,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 126.297,
+          "runner_seconds": 126.5,
+          "model_attempts": 31,
+          "model_failed_attempts": 4,
+          "model_seconds": 91.874,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-anomaly-guard-1",
+          "card": "L3",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 4691.51926,
+          "sum_best_scores": 4694.982852,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -3.463592,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 139.969,
+          "runner_seconds": 140.14,
+          "model_attempts": 31,
+          "model_failed_attempts": 6,
+          "model_seconds": 104.673,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-anomaly-guard-1",
+          "card": "L4",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 3913.510909,
+          "sum_best_scores": 4219.285793,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -5.774884,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 138.625,
+          "runner_seconds": 138.797,
+          "model_attempts": 30,
+          "model_failed_attempts": 4,
+          "model_seconds": 106.047,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-anomaly-guard-2",
+          "card": "L1",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 4744.752538,
+          "sum_best_scores": 4746.17567,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.423131,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 135.265,
+          "runner_seconds": 135.453,
+          "model_attempts": 32,
+          "model_failed_attempts": 4,
+          "model_seconds": 103.423,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-anomaly-guard-2",
+          "card": "L2",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 5060.149781,
+          "sum_best_scores": 5061.348814,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -1.199033,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 127.64,
+          "runner_seconds": 127.828,
+          "model_attempts": 32,
+          "model_failed_attempts": 3,
+          "model_seconds": 94.622,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-anomaly-guard-2",
+          "card": "L3",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 4688.067835,
+          "sum_best_scores": 4691.398211,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -3.330376,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 132.719,
+          "runner_seconds": 132.907,
+          "model_attempts": 32,
+          "model_failed_attempts": 3,
+          "model_seconds": 97.08,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-anomaly-guard-2",
+          "card": "L4",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 3935.053165,
+          "sum_best_scores": 4244.567052,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -9.513887,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 120.735,
+          "runner_seconds": 120.922,
+          "model_attempts": 29,
+          "model_failed_attempts": 2,
+          "model_seconds": 88.985,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-anomaly-guard-3",
+          "card": "L1",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 4704.043458,
+          "sum_best_scores": 4705.527147,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.483689,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 155.172,
+          "runner_seconds": 155.375,
+          "model_attempts": 32,
+          "model_failed_attempts": 8,
+          "model_seconds": 123.408,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-anomaly-guard-3",
+          "card": "L2",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 5062.991079,
+          "sum_best_scores": 5065.79078,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -2.799701,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 164.61,
+          "runner_seconds": 164.812,
+          "model_attempts": 33,
+          "model_failed_attempts": 8,
+          "model_seconds": 131.454,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-anomaly-guard-3",
+          "card": "L3",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 4688.067835,
+          "sum_best_scores": 4691.398211,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -3.330376,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 135.75,
+          "runner_seconds": 135.938,
+          "model_attempts": 32,
+          "model_failed_attempts": 3,
+          "model_seconds": 101.888,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        },
+        {
+          "evaluation": "scheduling-anomaly-guard-3",
+          "card": "L4",
+          "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+          "total": 3935.053165,
+          "sum_best_scores": 4244.567052,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -9.513887,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 137.891,
+          "runner_seconds": 138.062,
+          "model_attempts": 31,
+          "model_failed_attempts": 4,
+          "model_seconds": 107.454,
+          "model_stages_applied": [
+            "message_understanding",
+            "plan_adaptation"
+          ],
+          "termination_reason": "survey_complete",
+          "planner_errors": 0,
+          "validation_errors": 0
+        }
+      ]
+    }
+  },
+  "comparisons": {
+    "scheduling-rate-candidate": {
+      "cards": [
+        {
+          "card": "L1",
+          "baseline": 4606.244372,
+          "candidate": 4755.482873,
+          "delta": 149.23850099999981,
+          "relative_delta": 0.03239917141764701,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 2
+        },
+        {
+          "card": "L2",
+          "baseline": 4985.029235,
+          "candidate": 5095.027913,
+          "delta": 109.99867799999993,
+          "relative_delta": 0.02206580399322371,
+          "baseline_required_missing": 4,
+          "candidate_required_missing": 5
+        },
+        {
+          "card": "L3",
+          "baseline": 4523.911921,
+          "candidate": 4578.755116,
+          "delta": 54.84319500000038,
+          "relative_delta": 0.012122958173747428,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 3
+        },
+        {
+          "card": "L4",
+          "baseline": 3904.482484,
+          "candidate": 3566.255226,
+          "delta": -338.2272579999999,
+          "relative_delta": -0.0866253746523402,
+          "baseline_required_missing": 8,
+          "candidate_required_missing": 13
+        }
+      ],
+      "baseline_mean": 4504.9170030000005,
+      "candidate_mean": 4498.880282,
+      "baseline_min": 3904.482484,
+      "candidate_min": 3566.255226,
+      "samples_per_card": 3,
+      "needs_paired_repeats": false,
+      "accepted": false,
+      "all_complete": true,
+      "per_card_accepted": false,
+      "whole_evaluations": {
+        "baseline": {
+          "samples": 3,
+          "evaluations": [
+            {
+              "evaluation": "scheduling-baseline-1",
+              "mean": 4520.10990575,
+              "minimum": 3924.33965,
+              "required_missing_total": 18
+            },
+            {
+              "evaluation": "scheduling-baseline-2",
+              "mean": 4502.59436375,
+              "minimum": 3904.482484,
+              "required_missing_total": 18
+            },
+            {
+              "evaluation": "scheduling-baseline-3",
+              "mean": 4495.3318625,
+              "minimum": 3904.482484,
+              "required_missing_total": 18
+            }
+          ],
+          "mean": 4502.59436375,
+          "minimum": 3904.482484,
+          "required_missing_total": 18
+        },
+        "candidate": {
+          "samples": 3,
+          "evaluations": [
+            {
+              "evaluation": "scheduling-rate-candidate-1",
+              "mean": 4493.1967,
+              "minimum": 3566.255226,
+              "required_missing_total": 23
+            },
+            {
+              "evaluation": "scheduling-rate-candidate-2",
+              "mean": 4498.46459125,
+              "minimum": 3566.255226,
+              "required_missing_total": 22
+            },
+            {
+              "evaluation": "scheduling-rate-candidate-3",
+              "mean": 4510.99051675,
+              "minimum": 3566.255226,
+              "required_missing_total": 22
+            }
+          ],
+          "mean": 4498.46459125,
+          "minimum": 3566.255226,
+          "required_missing_total": 22
+        },
+        "accepted": false
+      },
+      "two_model_stages_verified": true
+    },
+    "scheduling-required-guard": {
+      "cards": [
+        {
+          "card": "L1",
+          "baseline": 4606.244372,
+          "candidate": 4729.390258,
+          "delta": 123.14588600000025,
+          "relative_delta": 0.026734553370326538,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 2
+        },
+        {
+          "card": "L2",
+          "baseline": 4985.029235,
+          "candidate": 3369.61096,
+          "delta": -1615.418275,
+          "relative_delta": -0.32405392202278627,
+          "baseline_required_missing": 4,
+          "candidate_required_missing": 15
+        },
+        {
+          "card": "L3",
+          "baseline": 4523.911921,
+          "candidate": 4688.067835,
+          "delta": 164.15591399999994,
+          "relative_delta": 0.03628627543299156,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 2
+        },
+        {
+          "card": "L4",
+          "baseline": 3904.482484,
+          "candidate": 3935.053165,
+          "delta": 30.570680999999695,
+          "relative_delta": 0.007829637122275203,
+          "baseline_required_missing": 8,
+          "candidate_required_missing": 8
+        }
+      ],
+      "baseline_mean": 4504.9170030000005,
+      "candidate_mean": 4180.5305545,
+      "baseline_min": 3904.482484,
+      "candidate_min": 3369.61096,
+      "samples_per_card": 3,
+      "needs_paired_repeats": false,
+      "accepted": false,
+      "all_complete": true,
+      "per_card_accepted": false,
+      "whole_evaluations": {
+        "baseline": {
+          "samples": 3,
+          "evaluations": [
+            {
+              "evaluation": "scheduling-baseline-1",
+              "mean": 4520.10990575,
+              "minimum": 3924.33965,
+              "required_missing_total": 18
+            },
+            {
+              "evaluation": "scheduling-baseline-2",
+              "mean": 4502.59436375,
+              "minimum": 3904.482484,
+              "required_missing_total": 18
+            },
+            {
+              "evaluation": "scheduling-baseline-3",
+              "mean": 4495.3318625,
+              "minimum": 3904.482484,
+              "required_missing_total": 18
+            }
+          ],
+          "mean": 4502.59436375,
+          "minimum": 3904.482484,
+          "required_missing_total": 18
+        },
+        "candidate": {
+          "samples": 3,
+          "evaluations": [
+            {
+              "evaluation": "scheduling-required-guard-1",
+              "mean": 4184.84124025,
+              "minimum": 3369.61096,
+              "required_missing_total": 27
+            },
+            {
+              "evaluation": "scheduling-required-guard-2",
+              "mean": 4166.82873425,
+              "minimum": 3324.762014,
+              "required_missing_total": 28
+            },
+            {
+              "evaluation": "scheduling-required-guard-3",
+              "mean": 4180.5305545,
+              "minimum": 3369.61096,
+              "required_missing_total": 27
+            }
+          ],
+          "mean": 4180.5305545,
+          "minimum": 3369.61096,
+          "required_missing_total": 27
+        },
+        "accepted": false
+      },
+      "two_model_stages_verified": true
+    },
+    "scheduling-anomaly-guard": {
+      "cards": [
+        {
+          "card": "L1",
+          "baseline": 4606.244372,
+          "candidate": 4727.680807,
+          "delta": 121.43643499999962,
+          "relative_delta": 0.02636343736736502,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 2
+        },
+        {
+          "card": "L2",
+          "baseline": 4985.029235,
+          "candidate": 5062.991079,
+          "delta": 77.96184400000038,
+          "relative_delta": 0.015639194942454613,
+          "baseline_required_missing": 4,
+          "candidate_required_missing": 4
+        },
+        {
+          "card": "L3",
+          "baseline": 4523.911921,
+          "candidate": 4688.067835,
+          "delta": 164.15591399999994,
+          "relative_delta": 0.03628627543299156,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 2
+        },
+        {
+          "card": "L4",
+          "baseline": 3904.482484,
+          "candidate": 3935.053165,
+          "delta": 30.570680999999695,
+          "relative_delta": 0.007829637122275203,
+          "baseline_required_missing": 8,
+          "candidate_required_missing": 8
+        }
+      ],
+      "baseline_mean": 4504.9170030000005,
+      "candidate_mean": 4603.4482215,
+      "baseline_min": 3904.482484,
+      "candidate_min": 3935.053165,
+      "samples_per_card": 3,
+      "needs_paired_repeats": false,
+      "accepted": true,
+      "all_complete": true,
+      "per_card_accepted": true,
+      "whole_evaluations": {
+        "baseline": {
+          "samples": 3,
+          "evaluations": [
+            {
+              "evaluation": "scheduling-baseline-1",
+              "mean": 4520.10990575,
+              "minimum": 3924.33965,
+              "required_missing_total": 18
+            },
+            {
+              "evaluation": "scheduling-baseline-2",
+              "mean": 4502.59436375,
+              "minimum": 3904.482484,
+              "required_missing_total": 18
+            },
+            {
+              "evaluation": "scheduling-baseline-3",
+              "mean": 4495.3318625,
+              "minimum": 3904.482484,
+              "required_missing_total": 18
+            }
+          ],
+          "mean": 4502.59436375,
+          "minimum": 3904.482484,
+          "required_missing_total": 18
+        },
+        "candidate": {
+          "samples": 3,
+          "evaluations": [
+            {
+              "evaluation": "scheduling-anomaly-guard-1",
+              "mean": 4598.92551375,
+              "minimum": 3913.510909,
+              "required_missing_total": 16
+            },
+            {
+              "evaluation": "scheduling-anomaly-guard-2",
+              "mean": 4607.00582975,
+              "minimum": 3935.053165,
+              "required_missing_total": 16
+            },
+            {
+              "evaluation": "scheduling-anomaly-guard-3",
+              "mean": 4597.53888425,
+              "minimum": 3935.053165,
+              "required_missing_total": 16
+            }
+          ],
+          "mean": 4598.92551375,
+          "minimum": 3935.053165,
+          "required_missing_total": 16
+        },
+        "accepted": true
+      },
+      "two_model_stages_verified": true
+    }
+  }
+}
