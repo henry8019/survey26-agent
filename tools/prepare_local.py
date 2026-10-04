@@ -24,15 +24,20 @@ def digest(path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--archive", type=Path, help="optional already downloaded official ZIP")
+    parser.add_argument("--current", action="store_true", help="prepare the separately verified current fair-clock runner")
     args = parser.parse_args()
     upstream = json.loads((ROOT / "UPSTREAM.json").read_text(encoding="utf-8"))
+    if args.current:
+        upstream = upstream["current"]
     local = ROOT / ".local"
     local.mkdir(exist_ok=True)
-    archive = args.archive or local / "official-examples.zip"
+    archive_name = "official-examples-current.zip" if args.current else "official-examples.zip"
+    runner_name = "runner-current" if args.current else "runner"
+    archive = args.archive or local / archive_name
     if not archive.exists():
         if args.archive:
             parser.error("--archive does not exist")
-        temporary = local / "official-examples.zip.part"
+        temporary = local / (archive_name + ".part")
         with urllib.request.urlopen(upstream["source_url"], timeout=30) as response, temporary.open("wb") as out:
             shutil.copyfileobj(response, out)
         if digest(temporary) != upstream["archive_sha256"]:
@@ -51,7 +56,8 @@ def main():
                 raise SystemExit("unsafe archive path")
             if (info.external_attr >> 16) & 0o170000 == 0o120000:
                 raise SystemExit("archive symlink is not supported")
-            destination = local.joinpath(*relative.parts).resolve()
+            parts = (runner_name, *relative.parts[1:]) if relative.parts[0] == "runner" else relative.parts
+            destination = local.joinpath(*parts).resolve()
             if not destination.is_relative_to(local.resolve()):
                 raise SystemExit("archive path escapes .local")
             data = z.read(info)
@@ -65,7 +71,7 @@ def main():
         if not destination.exists():
             destination.write_bytes(data)
     print(f"Prepared {len(files)} checksum-verified official resource files in .local")
-    return subprocess.call([sys.executable, str(local / "runner/verify_engine.py")], cwd=ROOT)
+    return subprocess.call([sys.executable, str(local / runner_name / "verify_engine.py")], cwd=ROOT)
 
 
 if __name__ == "__main__":

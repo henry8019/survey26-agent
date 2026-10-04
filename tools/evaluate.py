@@ -16,6 +16,7 @@ def main():
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--jobs", type=int, choices=(1, 2), default=2)
     parser.add_argument("--card-set", choices=CARD_SETS, default="official")
+    parser.add_argument("--runner", type=Path, help="explicit verified runner snapshot")
     args = parser.parse_args()
     for card in CARD_SETS[args.card_set]:
         try:
@@ -27,8 +28,11 @@ def main():
     args.out.mkdir(parents=True)
 
     def run(card):
-        completed = subprocess.run([sys.executable, str(ROOT / "tools/run_practice.py"), "--card", card,
-                                    "--project", str(args.project.resolve()), "--out", str((args.out / card).resolve())],
+        command = [sys.executable, str(ROOT / "tools/run_practice.py"), "--card", card,
+                   "--project", str(args.project.resolve()), "--out", str((args.out / card).resolve())]
+        if args.runner is not None:
+            command.extend(["--runner", str(args.runner.resolve())])
+        completed = subprocess.run(command,
                                    cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace")
         summary = args.out / card / "summary.json"
         result = json.loads(summary.read_text(encoding="utf-8"))["runs"][0] if summary.exists() else {

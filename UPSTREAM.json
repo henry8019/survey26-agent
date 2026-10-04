@@ -1,8 +1,17 @@
 {
   "release": "examples-2026-10-02",
-  "source_url": "https://github.com/gosimfoundation/hackathon-survey26/releases/download/examples-2026-10-02/gosim-observer-examples.zip",
+  "source_url": "https://github.com/henry8019/survey26-agent/releases/download/benchmark-assets-2026-10-04/official-examples.zip",
+  "original_source_url": "https://github.com/gosimfoundation/hackathon-survey26/releases/download/examples-2026-10-02/gosim-observer-examples.zip",
   "agent_path": "examples/python",
   "repository": "https://github.com/gosimfoundation/hackathon-survey26",
   "imported_on": "2026-10-04",
-  "archive_sha256": "55aa1e72bf97b8e27801793fbc48b749061ed12aa2f01f151e2bd56674e42711"
+  "archive_sha256": "55aa1e72bf97b8e27801793fbc48b749061ed12aa2f01f151e2bd56674e42711",
+  "engine_source_commit": "db4bddf3cc67fb5f0036d9fb2cf90b9e2b7e8f4a",
+  "current": {
+    "source_url": "https://github.com/henry8019/survey26-agent/releases/download/benchmark-assets-2026-10-04/official-examples-current.zip",
+    "original_source_url": "https://github.com/gosimfoundation/hackathon-survey26/releases/download/examples-2026-10-02/gosim-observer-examples.zip",
+    "archive_sha256": "78ccb201dc3fbf5a69f5a6dd56c827bfba207fe9f110120f5afb2c462bd623df",
+    "engine_source_commit": "fair-clock",
+    "observed_at_utc": "2026-10-04T07:58:11Z"
+  }
 }

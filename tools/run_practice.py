@@ -20,7 +20,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RUNNER = ROOT / ".local" / "runner"
+RUNNER = ROOT / ".local" / "runner-current"
 from card_sets import CARD_SETS, card_path, require_runnable
 
 
@@ -53,7 +53,9 @@ def main():
     parser.add_argument("--mock-model", action="store_true")
     parser.add_argument("--out", type=Path)
     parser.add_argument("--project", type=Path, default=ROOT)
+    parser.add_argument("--runner", type=Path, default=RUNNER, help="explicit verified runner snapshot")
     args = parser.parse_args()
+    runner = args.runner.resolve()
     for card in (CARD_SETS[args.card_set] if args.card == "all" else [args.card]):
         try:
             require_runnable(card)
@@ -62,13 +64,18 @@ def main():
     project = args.project.resolve()
     if not math.isfinite(args.wallclock) or not 0 < args.wallclock <= 900:
         parser.error("--wallclock must be between 0 and 900 seconds")
-    if not (RUNNER / "run_local.py").is_file():
+    if not (runner / "run_local.py").is_file():
         parser.error("official local runner is missing from .local/runner")
     output = (args.out or ROOT / "run_output" / datetime.now().strftime("%Y%m%d-%H%M%S-%f")).resolve()
     if output.exists():
         parser.error("--out already exists; choose a new directory")
 
-    sys.path.insert(0, str(RUNNER))
+    engine = json.loads((runner / "ENGINE_MANIFEST.json").read_text(encoding="utf-8"))
+    engine_hashes = {row["runner_path"]: row["sha256"] for row in engine["files"]}
+    if any(hashlib.sha256((runner / name).read_bytes()).hexdigest() != digest for name, digest in engine_hashes.items()):
+        parser.error("runner differs from its official engine manifest")
+    engine_fingerprint = hashlib.sha256(json.dumps(engine_hashes, sort_keys=True).encode()).hexdigest()
+    sys.path.insert(0, str(runner))
     import run_local
     if sys.platform == "win32":
         from windows_transport import WindowsTransport
@@ -135,6 +142,9 @@ def main():
             summary["model_mode"] = "mock-neutral" if args.mock_model else "configured-api"
             summary["requested_wallclock_seconds"] = args.wallclock
             summary["source_sha256"] = fingerprint
+            summary["engine_sha256"] = engine_fingerprint
+            summary["engine_source_commit"] = engine["source_commit"]
+            summary["outputs"] = {name: Path(value).relative_to(ROOT).as_posix() for name, value in summary["outputs"].items()}
             summary["model"] = "neutral-fixture" if args.mock_model else credentials.get("OPENAI_MODEL", credentials.get("KIMI_MODEL", "k3"))
             trace_path = output / card / "model_trace.jsonl"
             trace = [json.loads(line) for line in trace_path.read_text(encoding="utf-8").splitlines()] if trace_path.exists() else []

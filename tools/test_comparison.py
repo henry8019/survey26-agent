@@ -26,6 +26,15 @@ class ComparisonTests(unittest.TestCase):
             r.update(total=150, required_missing=2)
         self.assertFalse(compare(baseline, candidate)["accepted"])
 
+    def test_changed_engine_cannot_be_hidden_by_identical_card_inputs(self):
+        baseline, candidate = self.groups(), self.groups()
+        for groups, identity in ((baseline, "legacy"), (candidate, "fair-clock")):
+            for rows in groups.values():
+                for row in rows:
+                    row["engine_sha256"] = identity
+        with self.assertRaisesRegex(ValueError, "same verified engine snapshot"):
+            compare(baseline, candidate)
+
     def test_declining_card_requires_three_samples(self):
         baseline, candidate = self.groups(), self.groups()
         for r in candidate["L1"]:

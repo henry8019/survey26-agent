@@ -35,10 +35,12 @@ Kimi 负责两个实际环节：解释有来源和有效期的公告、预报、
 平台使用网站配置并注入的环境变量。K3 请求使用 `reasoning_effort=none`，不设置温度。
 
 ```powershell
-py -3.12 tools/prepare_local.py
+py -3.12 tools/prepare_local.py          # 固定旧引擎，复现已记录的三次对照
+py -3.12 tools/prepare_local.py --current # 2026-10-04 更新的公平计时引擎，默认评测使用
 py -3.12 tools/prepare_official.py
 py -3.12 -m unittest discover -s tools -p test_*.py
 py -3.12 .local/runner/verify_engine.py
+py -3.12 .local/runner-current/verify_engine.py
 # 默认官方 alpha-delta；当前官网仅提供六个文件，天气不公开，本地完整评分会提前停止
 py -3.12 tools/freeze_version.py .local/versions/my-candidate
 py -3.12 tools/evaluate.py --project .local/versions/my-candidate --out run_output/my-evaluation
@@ -46,9 +48,15 @@ py -3.12 tools/evaluate.py --project .local/versions/my-candidate --out run_outp
 py -3.12 tools/evaluate.py --card-set examples --project .local/versions/my-candidate --out run_output/example-evaluation
 ```
 
-新克隆的仓库需先执行 `tools/prepare_local.py`。它下载 `UPSTREAM.json` 指定的官方资源，
+新克隆的仓库先执行上述两条准备命令。它们下载 `UPSTREAM.json` 固定的官方资源原始快照，
 校验完整 ZIP 的 SHA-256 后，仅把模拟器和本地卡放入被忽略的 `.local/`。
 已有文件如与官方版本不同会停止，保留原文件。比赛容器运行 `agent.py` 不需要这些资源。
+
+官方同名示例 ZIP 于 2026-10-04 更新计时器：`fair-clock-v1` 默认计入智能体响应窗口内的 CPU，
+按硬件速度折算，模型等待和引擎处理不计入；900 计费秒另有默认 1800 秒真实时间上限。
+Windows 官方计量后备方式将响应窗口当作 CPU，真实对照使用 Ubuntu 和官方进程 CPU 计量。
+旧引擎保留在 `.local/runner`，新引擎在 `.local/runner-current`。评测默认新引擎；
+重放旧实验须显式传入 `--runner .local/runner`，比较工具拒绝混用引擎哈希。
 
 结果保留各卡分项得分、漏观数、请求奖励、源码哈希、耗时及无密钥的模型输入输出。
 `tools/run_practice.py --card L1 --mock-model` 仅验证协议；模拟模型分数不能替代真实 Kimi 对照。

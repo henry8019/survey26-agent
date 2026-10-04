@@ -45,6 +45,7 @@ GitHub 示例只提供启动与本地回放参考。官网练习卡 α–δ 和�
 
 ```powershell
 py -3.12 tools/prepare_local.py
+py -3.12 tools/prepare_local.py --current
 py -3.12 tools/prepare_official.py
 py -3.12 tools/prepare_official.py --verify
 # 后续检查新增公开文件；已有文件变化时停止，不静默覆盖
@@ -57,6 +58,16 @@ py -3.12 tools/evaluate.py --card-set examples --project .local/versions/my-cand
 
 官方公开几何另做 12 个时刻检查：每卡季初、中间、季末各一次，
 通过协议、官方光纤判定及整段曝光高度检查。没有天气、评分或模型调用。
+
+## 同名官方资源的计时更新
+
+新克隆验证时发现官方 `examples-2026-10-02` 同名 ZIP 已更新；评分公式、模拟器和
+四张示例卡的 58 个数据文件没有变化，运行器增加公平计时，受保护文件从 16 个变为 17 个。
+两个原始 ZIP、原始官方链接和 SHA-256 均固定在 `UPSTREAM.json`；资源快照保留原许可，
+以免已有回归依赖会变动的下载内容。准备工具核对完整 ZIP，已有文件变动仍会停止。
+
+新计时器下的 Ubuntu 真实四卡对照单独记录，不能与下面旧计时器的三次中位数混算。
+默认评测使用 `.local/runner-current`，旧实验需 `--runner .local/runner`；比较器检查引擎哈希。
 
 ## 实验与交付
 

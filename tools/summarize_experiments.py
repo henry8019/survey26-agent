@@ -25,7 +25,7 @@ def describe(entry):
     all_runs = [r for rows in groups.values() for r in rows]
     trace_stats = []
     for r in all_runs:
-        trace = Path(r["outputs"]["agent.log"]).parent / "model_trace.jsonl"
+        trace = (ROOT / r["outputs"]["agent.log"]).parent / "model_trace.jsonl"
         records = [json.loads(line) for line in trace.read_text(encoding="utf-8").splitlines()] if trace.exists() else []
         finishes = [row for row in records if row.get("event") == "finish"]
         trace_stats.append({"card": r["card"], "file": str(trace.relative_to(ROOT)),
@@ -74,7 +74,7 @@ def main():
         for entry in descriptions.values():
             paths = [ROOT / p for p in entry["runs"]]
             entry["whole_evaluations"] = evaluation_medians(paths)
-            keys = ("card", "card_sha256", "card_source", "model_mode", "requested_wallclock_seconds",
+            keys = ("card", "card_sha256", "card_source", "model_mode", "requested_wallclock_seconds", "engine_sha256", "engine_source_commit", "fair_clock",
                     "source_sha256", "total", "sum_best_scores", "required_missing", "required_penalty",
                     "uniformity_penalty", "report_settlement", "observation_request_reward", "wall_seconds",
                     "runner_seconds", "model_attempts", "model_failed_attempts", "model_seconds",

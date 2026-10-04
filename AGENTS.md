@@ -54,6 +54,12 @@ Commit predictions only for the winning action. Keep the original pointing polic
 during its existing quality anomaly phase until a separately evaluated change to
 the quality estimator and diagnosis is accepted.
 
+UPSTREAM.json pins separate original official legacy and fair-clock snapshots. Prepare both
+with tools/prepare_local.py and --current. Evaluations default to runner-current; use an
+explicit --runner .local/runner only for legacy reproduction. Never combine engines in an
+score comparison. Use Linux for fair-clock CPU metering; the official Windows fallback
+charges whole response windows. Agent runtime source remains independent of these tools.
+
 The official alpha-delta export currently lacks full replay files. Local scoring
 tools default to official cards and stop on missing products. Choose examples
 explicitly with --card-set examples; their scores are engineering regressions,

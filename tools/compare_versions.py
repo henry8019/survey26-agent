@@ -19,6 +19,8 @@ def compare(baseline, candidate):
     if set(baseline) != set(candidate):
         raise ValueError("baseline and candidate must use the same card set")
     rows = []
+    if len({r.get("engine_sha256") for groups in (baseline, candidate) for runs in groups.values() for r in runs}) != 1:
+        raise ValueError("baseline and candidate must use the same verified engine snapshot")
     complete = all(r["termination_reason"] == "survey_complete" and r.get("model_mode") == "configured-api"
                    and not r.get("planner_errors", 0) and not r.get("validation_errors", 0)
                    for groups in (baseline, candidate) for runs in groups.values() for r in runs)
