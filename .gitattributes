@@ -1,0 +1,2 @@
+# Preserve exact evaluated source bytes across GitHub and platform checkouts.
+* -text

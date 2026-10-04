@@ -1,0 +1,800 @@
+{
+  "note": "Real Kimi k3, three runs per local L1-L4 card. All real local cards have 16 fibers. Per-card metric medians precede aggregation. Private runtime inputs and model traces remain local.",
+  "selected": "round4-selected",
+  "experiments": {
+    "baseline": {
+      "source_sha256": "2ad63064c2e06b28651d8f7ef205b4a33c9809182691bd7725b01da76affa758",
+      "model_configuration": {
+        "call_timeout_seconds": 12.0,
+        "total_budget_seconds": 300.0,
+        "max_calls": 100,
+        "max_retries": 3,
+        "model": "k3",
+        "base_url": "https://api.kimi.com/coding/v1",
+        "reasoning_effort": "none",
+        "max_tokens": 250,
+        "temperature": "provider default",
+        "wallclock_limit_seconds": 900
+      },
+      "all_complete_same_source": true,
+      "samples_per_card": 3,
+      "cards": {
+        "L1": {
+          "total": 4263.665246,
+          "sum_best_scores": 4416.581078,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -2.915833,
+          "report_settlement": 0.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 254.109
+        },
+        "L2": {
+          "total": 3832.451938,
+          "sum_best_scores": 4280.990021,
+          "required_missing": 10,
+          "required_penalty": -500.0,
+          "uniformity_penalty": -7.1163,
+          "report_settlement": 100.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 205.891
+        },
+        "L3": {
+          "total": 4211.579555,
+          "sum_best_scores": 4325.177555,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -14.833702,
+          "report_settlement": 0.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 227.907
+        },
+        "L4": {
+          "total": 3342.003881,
+          "sum_best_scores": 3754.652204,
+          "required_missing": 9,
+          "required_penalty": -450.0,
+          "uniformity_penalty": -14.76387,
+          "report_settlement": 0.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 282.782
+        }
+      },
+      "mean": 3912.425155,
+      "minimum": 3342.003881,
+      "required_missing_total": 24,
+      "model_attempts_max": 83,
+      "model_seconds_max": 277.422,
+      "wall_seconds_max": 288.75,
+      "per_evaluation": [
+        {
+          "label": "optimization-baseline-1",
+          "mean": 3861.10940425,
+          "minimum": 3357.04148,
+          "required_missing_total": 24
+        },
+        {
+          "label": "optimization-baseline-2",
+          "mean": 3991.48850975,
+          "minimum": 2764.662381,
+          "required_missing_total": 27
+        },
+        {
+          "label": "optimization-baseline-3",
+          "mean": 3871.17885075,
+          "minimum": 3342.003881,
+          "required_missing_total": 23
+        }
+      ],
+      "valid_two_model_stages_runs": 0
+    },
+    "round1": {
+      "source_sha256": "7378fa1eab6cec21e6206249d1b67046756d31b652bda169564b0b072ec6f33d",
+      "model_configuration": {
+        "call_timeout_seconds": 12.0,
+        "total_budget_seconds": 300.0,
+        "max_calls": 100,
+        "max_retries": 3,
+        "model": "k3",
+        "base_url": "https://api.kimi.com/coding/v1",
+        "reasoning_effort": "none",
+        "max_tokens": 250,
+        "temperature": "provider default",
+        "wallclock_limit_seconds": 900
+      },
+      "all_complete_same_source": true,
+      "samples_per_card": 3,
+      "cards": {
+        "L1": {
+          "total": 4582.158782,
+          "sum_best_scores": 4683.326654,
+          "required_missing": 2,
+          "required_penalty": -100.0,
+          "uniformity_penalty": -1.154655,
+          "report_settlement": 0.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 310.312
+        },
+        "L2": {
+          "total": 4939.374173,
+          "sum_best_scores": 5091.395813,
+          "required_missing": 5,
+          "required_penalty": -250.0,
+          "uniformity_penalty": -2.021641,
+          "report_settlement": 100.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 257.891
+        },
+        "L3": {
+          "total": 4317.357389,
+          "sum_best_scores": 4475.767368,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -7.683793,
+          "report_settlement": 0.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 231.797,
+          "model_attempts": 77,
+          "model_seconds": 200.691
+        },
+        "L4": {
+          "total": 3764.03556,
+          "sum_best_scores": 4170.167552,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -6.131993,
+          "report_settlement": 0.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 321.312,
+          "model_attempts": 81,
+          "model_seconds": 293.218
+        }
+      },
+      "mean": 4400.731476,
+      "minimum": 3764.03556,
+      "required_missing_total": 18,
+      "model_attempts_max": 82,
+      "model_seconds_max": 300.091,
+      "wall_seconds_max": 328.438,
+      "per_evaluation": [
+        {
+          "label": "optimization-round1-saturation-probe-1",
+          "mean": 4419.26176825,
+          "minimum": 3853.847912,
+          "required_missing_total": 17
+        },
+        {
+          "label": "optimization-round1-saturation-probe-2",
+          "mean": 4405.57591925,
+          "minimum": 3764.03556,
+          "required_missing_total": 18
+        },
+        {
+          "label": "optimization-round1-saturation-probe-3",
+          "mean": 4376.778474,
+          "minimum": 3751.170364,
+          "required_missing_total": 17
+        }
+      ],
+      "valid_two_model_stages_runs": 0
+    },
+    "round2": {
+      "source_sha256": "c1a2e91dc6ffce9ac1536080452b11bd217d8c8546504beb78ad7f2db4cef7c5",
+      "model_configuration": {
+        "call_timeout_seconds": 8.0,
+        "total_budget_seconds": 150.0,
+        "max_calls": 40,
+        "max_retries": 2,
+        "model": "k3",
+        "base_url": "https://api.kimi.com/coding/v1",
+        "reasoning_effort": "none",
+        "max_tokens": 250,
+        "temperature": "provider default",
+        "wallclock_limit_seconds": 900
+      },
+      "all_complete_same_source": true,
+      "samples_per_card": 3,
+      "cards": {
+        "L1": {
+          "total": 4496.877833,
+          "sum_best_scores": 4648.207064,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -1.329232,
+          "report_settlement": 0.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 105.234,
+          "model_attempts": 32,
+          "model_seconds": 77.564
+        },
+        "L2": {
+          "total": 4899.166114,
+          "sum_best_scores": 5014.5349,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -1.146406,
+          "report_settlement": 100.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 135.234,
+          "model_attempts": 32,
+          "model_seconds": 105.654
+        },
+        "L3": {
+          "total": 4407.636905,
+          "sum_best_scores": 4562.880462,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -5.243558,
+          "report_settlement": 0.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 121.36,
+          "model_attempts": 30,
+          "model_seconds": 89.453
+        },
+        "L4": {
+          "total": 3811.788942,
+          "sum_best_scores": 4220.11873,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -8.329788,
+          "report_settlement": 0.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 103.515,
+          "model_attempts": 30,
+          "model_seconds": 76.641
+        }
+      },
+      "mean": 4403.8674485,
+      "minimum": 3811.788942,
+      "required_missing_total": 18,
+      "model_attempts_max": 35,
+      "model_seconds_max": 118.499,
+      "wall_seconds_max": 148.719,
+      "per_evaluation": [
+        {
+          "label": "optimization-round2-candidate-1",
+          "mean": 4395.85082875,
+          "minimum": 3811.788942,
+          "required_missing_total": 19
+        },
+        {
+          "label": "optimization-round2-candidate-2",
+          "mean": 4398.58961175,
+          "minimum": 3790.677595,
+          "required_missing_total": 18
+        },
+        {
+          "label": "optimization-round2-candidate-3",
+          "mean": 4407.4230435,
+          "minimum": 3811.788942,
+          "required_missing_total": 18
+        }
+      ],
+      "valid_two_model_stages_runs": 12
+    },
+    "round3-rejected": {
+      "source_sha256": "ea94230f72cd89a5cfc0e05af445c98d6b3901c8a069b736be1acfdea9bed2a1",
+      "model_configuration": {
+        "call_timeout_seconds": 8.0,
+        "total_budget_seconds": 150.0,
+        "max_calls": 40,
+        "max_retries": 2,
+        "model": "k3",
+        "base_url": "https://api.kimi.com/coding/v1",
+        "reasoning_effort": "none",
+        "max_tokens": 250,
+        "temperature": "provider default",
+        "wallclock_limit_seconds": 900
+      },
+      "all_complete_same_source": true,
+      "samples_per_card": 3,
+      "cards": {
+        "L1": {
+          "total": 4681.89108,
+          "sum_best_scores": 4783.103615,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -1.212534,
+          "report_settlement": 100.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 117.25,
+          "model_attempts": 33,
+          "model_seconds": 86.172
+        },
+        "L2": {
+          "total": 5162.211695,
+          "sum_best_scores": 5264.529813,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -2.318117,
+          "report_settlement": 100.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 151.25,
+          "model_attempts": 40,
+          "model_seconds": 119.093
+        },
+        "L3": {
+          "total": 4417.187611,
+          "sum_best_scores": 4570.740195,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -3.552584,
+          "report_settlement": 0.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 117.156,
+          "model_attempts": 32,
+          "model_seconds": 85.312
+        },
+        "L4": {
+          "total": 3631.021107,
+          "sum_best_scores": 4134.685315,
+          "required_missing": 10,
+          "required_penalty": -500.0,
+          "uniformity_penalty": -3.664208,
+          "report_settlement": 0.0,
+          "observation_request_reward": 0.0,
+          "wall_seconds": 113.093,
+          "model_attempts": 33,
+          "model_seconds": 82.942
+        }
+      },
+      "mean": 4473.07787325,
+      "minimum": 3631.021107,
+      "required_missing_total": 21,
+      "model_attempts_max": 40,
+      "model_seconds_max": 121.236,
+      "wall_seconds_max": 154.437,
+      "per_evaluation": [
+        {
+          "label": "optimization-round3-feasible-1",
+          "mean": 4473.07787325,
+          "minimum": 3631.021107,
+          "required_missing_total": 21
+        },
+        {
+          "label": "optimization-round3-feasible-2",
+          "mean": 4470.96755075,
+          "minimum": 3631.021107,
+          "required_missing_total": 21
+        },
+        {
+          "label": "optimization-round3-feasible-3",
+          "mean": 4473.07787325,
+          "minimum": 3631.021107,
+          "required_missing_total": 21
+        }
+      ],
+      "valid_two_model_stages_runs": 12
+    },
+    "round4-initial-rejected": {
+      "source_sha256": "6034a773686fe8649e77d821a71e3a5bcf615f41d3dfa97b5734cc948668ecc0",
+      "model_configuration": {
+        "call_timeout_seconds": 8.0,
+        "total_budget_seconds": 150.0,
+        "max_calls": 40,
+        "max_retries": 2,
+        "model": "k3",
+        "base_url": "https://api.kimi.com/coding/v1",
+        "reasoning_effort": "none",
+        "max_tokens": 250,
+        "temperature": "provider default",
+        "wallclock_limit_seconds": 900
+      },
+      "all_complete_same_source": true,
+      "samples_per_card": 3,
+      "cards": {
+        "L1": {
+          "total": 4606.244372,
+          "sum_best_scores": 4657.555024,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -1.310652,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 112.734,
+          "model_attempts": 30,
+          "model_seconds": 84.638
+        },
+        "L2": {
+          "total": 5015.941248,
+          "sum_best_scores": 4925.596595,
+          "required_missing": 5,
+          "required_penalty": -250.0,
+          "uniformity_penalty": -2.289632,
+          "report_settlement": 100.0,
+          "observation_request_reward": 200.0,
+          "wall_seconds": 115.5,
+          "model_attempts": 32,
+          "model_seconds": 87.157
+        },
+        "L3": {
+          "total": 4600.764659,
+          "sum_best_scores": 4553.327371,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -2.562712,
+          "report_settlement": 0.0,
+          "observation_request_reward": 200.0,
+          "wall_seconds": 102.094,
+          "model_attempts": 29,
+          "model_seconds": 72.188
+        },
+        "L4": {
+          "total": 3928.640826,
+          "sum_best_scores": 4134.28897,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -5.648144,
+          "report_settlement": 0.0,
+          "observation_request_reward": 200.0,
+          "wall_seconds": 98.328,
+          "model_attempts": 29,
+          "model_seconds": 70.576
+        }
+      },
+      "mean": 4537.89777625,
+      "minimum": 3928.640826,
+      "required_missing_total": 19,
+      "model_attempts_max": 33,
+      "model_seconds_max": 92.935,
+      "wall_seconds_max": 120.531,
+      "per_evaluation": [
+        {
+          "label": "optimization-round4-request-1",
+          "mean": 4541.33160425,
+          "minimum": 3928.640826,
+          "required_missing_total": 19
+        },
+        {
+          "label": "optimization-round4-request-2",
+          "mean": 4537.89777625,
+          "minimum": 3928.640826,
+          "required_missing_total": 18
+        },
+        {
+          "label": "optimization-round4-request-3",
+          "mean": 4527.239205,
+          "minimum": 3928.640826,
+          "required_missing_total": 19
+        }
+      ],
+      "valid_two_model_stages_runs": 12
+    },
+    "round4-selected": {
+      "source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
+      "model_configuration": {
+        "call_timeout_seconds": 8.0,
+        "total_budget_seconds": 150.0,
+        "max_calls": 40,
+        "max_retries": 2,
+        "model": "k3",
+        "base_url": "https://api.kimi.com/coding/v1",
+        "reasoning_effort": "none",
+        "max_tokens": 250,
+        "temperature": "provider default",
+        "wallclock_limit_seconds": 900
+      },
+      "all_complete_same_source": true,
+      "samples_per_card": 3,
+      "cards": {
+        "L1": {
+          "total": 4606.244372,
+          "sum_best_scores": 4657.555024,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -1.310652,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 101.343,
+          "model_attempts": 30,
+          "model_seconds": 73.516
+        },
+        "L2": {
+          "total": 4985.029235,
+          "sum_best_scores": 4987.372417,
+          "required_missing": 4,
+          "required_penalty": -200.0,
+          "uniformity_penalty": -2.343182,
+          "report_settlement": 100.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 111.891,
+          "model_attempts": 30,
+          "model_seconds": 83.281
+        },
+        "L3": {
+          "total": 4523.911921,
+          "sum_best_scores": 4577.279448,
+          "required_missing": 3,
+          "required_penalty": -150.0,
+          "uniformity_penalty": -3.367527,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 103.141,
+          "model_attempts": 30,
+          "model_seconds": 74.002
+        },
+        "L4": {
+          "total": 3904.482484,
+          "sum_best_scores": 4212.396521,
+          "required_missing": 8,
+          "required_penalty": -400.0,
+          "uniformity_penalty": -7.914037,
+          "report_settlement": 0.0,
+          "observation_request_reward": 100.0,
+          "wall_seconds": 98.109,
+          "model_attempts": 30,
+          "model_seconds": 71.811
+        }
+      },
+      "mean": 4504.9170030000005,
+      "minimum": 3904.482484,
+      "required_missing_total": 18,
+      "model_attempts_max": 31,
+      "model_seconds_max": 88.139,
+      "wall_seconds_max": 116.625,
+      "per_evaluation": [
+        {
+          "label": "optimization-round4-guard-1",
+          "mean": 4504.9170030000005,
+          "minimum": 3904.482484,
+          "required_missing_total": 18
+        },
+        {
+          "label": "optimization-round4-guard-2",
+          "mean": 4504.9170030000005,
+          "minimum": 3904.482484,
+          "required_missing_total": 18
+        },
+        {
+          "label": "optimization-round4-guard-3",
+          "mean": 4505.6305095,
+          "minimum": 3904.482484,
+          "required_missing_total": 18
+        }
+      ],
+      "valid_two_model_stages_runs": 12
+    }
+  },
+  "comparisons": {
+    "round1": {
+      "cards": [
+        {
+          "card": "L1",
+          "baseline": 4263.665246,
+          "candidate": 4582.158782,
+          "delta": 318.49353600000086,
+          "relative_delta": 0.07469947043774104,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 2
+        },
+        {
+          "card": "L2",
+          "baseline": 3832.451938,
+          "candidate": 4939.374173,
+          "delta": 1106.922235,
+          "relative_delta": 0.2888287323382997,
+          "baseline_required_missing": 10,
+          "candidate_required_missing": 5
+        },
+        {
+          "card": "L3",
+          "baseline": 4211.579555,
+          "candidate": 4317.357389,
+          "delta": 105.77783399999953,
+          "relative_delta": 0.025115952962213372,
+          "baseline_required_missing": 2,
+          "candidate_required_missing": 3
+        },
+        {
+          "card": "L4",
+          "baseline": 3342.003881,
+          "candidate": 3764.03556,
+          "delta": 422.0316789999997,
+          "relative_delta": 0.12628102600339253,
+          "baseline_required_missing": 9,
+          "candidate_required_missing": 8
+        }
+      ],
+      "baseline_mean": 3912.425155,
+      "candidate_mean": 4400.731476,
+      "baseline_min": 3342.003881,
+      "candidate_min": 3764.03556,
+      "samples_per_card": 3,
+      "needs_paired_repeats": false,
+      "accepted": true,
+      "all_complete": true
+    },
+    "round2": {
+      "cards": [
+        {
+          "card": "L1",
+          "baseline": 4582.158782,
+          "candidate": 4496.877833,
+          "delta": -85.28094900000087,
+          "relative_delta": -0.018611522004651663,
+          "baseline_required_missing": 2,
+          "candidate_required_missing": 3
+        },
+        {
+          "card": "L2",
+          "baseline": 4939.374173,
+          "candidate": 4899.166114,
+          "delta": -40.2080590000005,
+          "relative_delta": -0.00814031445922623,
+          "baseline_required_missing": 5,
+          "candidate_required_missing": 4
+        },
+        {
+          "card": "L3",
+          "baseline": 4317.357389,
+          "candidate": 4407.636905,
+          "delta": 90.27951600000051,
+          "relative_delta": 0.02091082758865866,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 3
+        },
+        {
+          "card": "L4",
+          "baseline": 3764.03556,
+          "candidate": 3811.788942,
+          "delta": 47.75338200000033,
+          "relative_delta": 0.012686751025274674,
+          "baseline_required_missing": 8,
+          "candidate_required_missing": 8
+        }
+      ],
+      "baseline_mean": 4400.731476,
+      "candidate_mean": 4403.8674485,
+      "baseline_min": 3764.03556,
+      "candidate_min": 3811.788942,
+      "samples_per_card": 3,
+      "needs_paired_repeats": false,
+      "accepted": true,
+      "all_complete": true
+    },
+    "round3-rejected": {
+      "cards": [
+        {
+          "card": "L1",
+          "baseline": 4496.877833,
+          "candidate": 4681.89108,
+          "delta": 185.01324700000077,
+          "relative_delta": 0.04114260023750145,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 4
+        },
+        {
+          "card": "L2",
+          "baseline": 4899.166114,
+          "candidate": 5162.211695,
+          "delta": 263.0455810000003,
+          "relative_delta": 0.05369190896555102,
+          "baseline_required_missing": 4,
+          "candidate_required_missing": 4
+        },
+        {
+          "card": "L3",
+          "baseline": 4407.636905,
+          "candidate": 4417.187611,
+          "delta": 9.550705999999991,
+          "relative_delta": 0.0021668540775592743,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 3
+        },
+        {
+          "card": "L4",
+          "baseline": 3811.788942,
+          "candidate": 3631.021107,
+          "delta": -180.7678350000001,
+          "relative_delta": -0.04742335888753415,
+          "baseline_required_missing": 8,
+          "candidate_required_missing": 10
+        }
+      ],
+      "baseline_mean": 4403.8674485,
+      "candidate_mean": 4473.07787325,
+      "baseline_min": 3811.788942,
+      "candidate_min": 3631.021107,
+      "samples_per_card": 3,
+      "needs_paired_repeats": false,
+      "accepted": false,
+      "all_complete": true
+    },
+    "round4-initial-rejected": {
+      "cards": [
+        {
+          "card": "L1",
+          "baseline": 4496.877833,
+          "candidate": 4606.244372,
+          "delta": 109.36653900000056,
+          "relative_delta": 0.02432054929253858,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 3
+        },
+        {
+          "card": "L2",
+          "baseline": 4899.166114,
+          "candidate": 5015.941248,
+          "delta": 116.77513400000043,
+          "relative_delta": 0.023835716381671652,
+          "baseline_required_missing": 4,
+          "candidate_required_missing": 5
+        },
+        {
+          "card": "L3",
+          "baseline": 4407.636905,
+          "candidate": 4600.764659,
+          "delta": 193.1277540000001,
+          "relative_delta": 0.043816620597970986,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 3
+        },
+        {
+          "card": "L4",
+          "baseline": 3811.788942,
+          "candidate": 3928.640826,
+          "delta": 116.8518839999997,
+          "relative_delta": 0.030655391937489833,
+          "baseline_required_missing": 8,
+          "candidate_required_missing": 8
+        }
+      ],
+      "baseline_mean": 4403.8674485,
+      "candidate_mean": 4537.89777625,
+      "baseline_min": 3811.788942,
+      "candidate_min": 3928.640826,
+      "samples_per_card": 3,
+      "needs_paired_repeats": false,
+      "accepted": false,
+      "all_complete": true
+    },
+    "round4-selected": {
+      "cards": [
+        {
+          "card": "L1",
+          "baseline": 4496.877833,
+          "candidate": 4606.244372,
+          "delta": 109.36653900000056,
+          "relative_delta": 0.02432054929253858,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 3
+        },
+        {
+          "card": "L2",
+          "baseline": 4899.166114,
+          "candidate": 4985.029235,
+          "delta": 85.86312100000032,
+          "relative_delta": 0.017526068519014976,
+          "baseline_required_missing": 4,
+          "candidate_required_missing": 4
+        },
+        {
+          "card": "L3",
+          "baseline": 4407.636905,
+          "candidate": 4523.911921,
+          "delta": 116.2750159999996,
+          "relative_delta": 0.026380352671087272,
+          "baseline_required_missing": 3,
+          "candidate_required_missing": 3
+        },
+        {
+          "card": "L4",
+          "baseline": 3811.788942,
+          "candidate": 3904.482484,
+          "delta": 92.69354199999998,
+          "relative_delta": 0.024317595598922322,
+          "baseline_required_missing": 8,
+          "candidate_required_missing": 8
+        }
+      ],
+      "baseline_mean": 4403.8674485,
+      "candidate_mean": 4504.9170030000005,
+      "baseline_min": 3811.788942,
+      "candidate_min": 3904.482484,
+      "samples_per_card": 3,
+      "needs_paired_repeats": false,
+      "accepted": true,
+      "all_complete": true
+    }
+  }
+}

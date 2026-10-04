@@ -1,0 +1,8 @@
+{
+  "release": "examples-2026-10-02",
+  "source_url": "https://github.com/gosimfoundation/hackathon-survey26/releases/download/examples-2026-10-02/gosim-observer-examples.zip",
+  "agent_path": "examples/python",
+  "repository": "https://github.com/gosimfoundation/hackathon-survey26",
+  "imported_on": "2026-10-04",
+  "archive_sha256": "55aa1e72bf97b8e27801793fbc48b749061ed12aa2f01f151e2bd56674e42711"
+}

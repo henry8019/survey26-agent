@@ -1,0 +1,13 @@
+.env
+__pycache__/
+*.pyc
+run_output/
+*.zip
+agent_trace.jsonl
+.local/
+.venv/
+
+.env.*
+!.env.example
+!.env.sample
+!.env.template
