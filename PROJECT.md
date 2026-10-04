@@ -24,12 +24,17 @@ Kimi 负责两个实际环节：解释有来源和有效期的公告、预报、
 平台使用网站配置并注入的环境变量。K3 请求使用 `reasoning_effort=none`，不设置温度。
 
 ```powershell
+py -3.12 tools/prepare_local.py
 py -3.12 -m unittest discover -s tools -p test_*.py
 py -3.12 .local/runner/verify_engine.py
 # 冻结源码后，用真实模型完整评测四卡；输出路径必须未存在
 py -3.12 tools/freeze_version.py .local/versions/my-candidate
 py -3.12 tools/evaluate.py --project .local/versions/my-candidate --out run_output/my-evaluation
 ```
+
+新克隆的仓库需先执行 `tools/prepare_local.py`。它下载 `UPSTREAM.json` 指定的官方资源，
+校验完整 ZIP 的 SHA-256 后，仅把模拟器和本地卡放入被忽略的 `.local/`。
+已有文件如与官方版本不同会停止，保留原文件。比赛容器运行 `agent.py` 不需要这些资源。
 
 结果保留各卡分项得分、漏观数、请求奖励、源码哈希、耗时及无密钥的模型输入输出。
 `tools/run_practice.py --card L1 --mock-model` 仅验证协议；模拟模型分数不能替代真实 Kimi 对照。
