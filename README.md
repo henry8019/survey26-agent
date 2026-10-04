@@ -1,5 +1,7 @@
 > Current project: [PROJECT.md](PROJECT.md). Real Kimi experiments, selected strategy and validation limits: [OPTIMIZATION.md](OPTIMIZATION.md). Package identity: [SUBMISSION_VERSION.json](SUBMISSION_VERSION.json).
 
+> Current-version retrospective and next experiments: [REVIEW.md](REVIEW.md). Portable benchmark evidence: [reports/optimization-summary.json](reports/optimization-summary.json).
+
 # python-agent -- an example agent for participant-agent-protocol-v4
 
 [中文说明见 README.zh.md](README.zh.md)

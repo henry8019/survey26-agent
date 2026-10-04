@@ -1,0 +1,120 @@
+{
+  "run": "optimization-round4-guard-1",
+  "note": "Offline post-run audit; ideal public estimates assume scale=1, use 15-minute samples, and exclude weather, events, pointing and fiber competition. No sample is not a proof of impossibility.",
+  "cards": {
+    "L1": {
+      "required_count": 390,
+      "missing_categories": {
+        "hit_below_threshold": 3
+      },
+      "public_ideal_15minute_sampling": {
+        "hit_below_threshold_ideal_sample_feasible": 3
+      },
+      "components": {
+        "observation_request_reward": 100.0,
+        "report_settlement": 0.0,
+        "required_penalty": -150.0,
+        "sum_best_scores": 4657.555024,
+        "uniformity_penalty": -1.310652
+      },
+      "assigned_count": 11447,
+      "hit_count": 11447,
+      "requests_completed": 1,
+      "requests_issued": 2,
+      "request_executions": 6,
+      "request_deferred": 0,
+      "accepted_priorities": {
+        "required": 4,
+        "diagnostic": 2
+      }
+    },
+    "L2": {
+      "required_count": 430,
+      "missing_categories": {
+        "never_assigned": 4
+      },
+      "public_ideal_15minute_sampling": {
+        "never_assigned_ideal_sample_feasible": 4
+      },
+      "components": {
+        "observation_request_reward": 100.0,
+        "report_settlement": 100.0,
+        "required_penalty": -200.0,
+        "sum_best_scores": 4987.372417,
+        "uniformity_penalty": -2.343182
+      },
+      "assigned_count": 11222,
+      "hit_count": 11222,
+      "requests_completed": 1,
+      "requests_issued": 2,
+      "request_executions": 7,
+      "request_deferred": 13,
+      "accepted_priorities": {
+        "required": 3,
+        "diagnostic": 3
+      }
+    },
+    "L3": {
+      "required_count": 435,
+      "missing_categories": {
+        "never_assigned": 1,
+        "hit_below_threshold": 2
+      },
+      "public_ideal_15minute_sampling": {
+        "never_assigned_ideal_sample_feasible": 1,
+        "hit_below_threshold_ideal_sample_feasible": 2
+      },
+      "components": {
+        "observation_request_reward": 100.0,
+        "report_settlement": 0.0,
+        "required_penalty": -150.0,
+        "sum_best_scores": 4577.279448,
+        "uniformity_penalty": -3.367527
+      },
+      "assigned_count": 11091,
+      "hit_count": 10673,
+      "requests_completed": 1,
+      "requests_issued": 2,
+      "request_executions": 6,
+      "request_deferred": 5,
+      "accepted_priorities": {
+        "required": 5,
+        "diagnostic": 1
+      }
+    },
+    "L4": {
+      "required_count": 440,
+      "missing_categories": {
+        "never_assigned": 4,
+        "hit_below_threshold": 4
+      },
+      "public_ideal_15minute_sampling": {
+        "never_assigned_ideal_sample_feasible": 4,
+        "hit_below_threshold_ideal_sample_feasible": 4
+      },
+      "components": {
+        "observation_request_reward": 100.0,
+        "report_settlement": 0.0,
+        "required_penalty": -400.0,
+        "sum_best_scores": 4212.396521,
+        "uniformity_penalty": -7.914037
+      },
+      "assigned_count": 10084,
+      "hit_count": 9649,
+      "requests_completed": 1,
+      "requests_issued": 2,
+      "request_executions": 8,
+      "request_deferred": 9,
+      "accepted_priorities": {
+        "required": 5,
+        "diagnostic": 1
+      }
+    }
+  },
+  "all_three_runs_missing_categories_match": true,
+  "runs_reviewed": [
+    "optimization-round4-guard-1",
+    "optimization-round4-guard-2",
+    "optimization-round4-guard-3"
+  ]
+}
