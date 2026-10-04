@@ -1,0 +1,22 @@
+{
+  "selected": "fair-clock-v3",
+  "card_set": "examples",
+  "official_scored_acceptance": false,
+  "experiments": [
+    {
+      "name": "fair-clock-v2",
+      "project": ".local/versions/official-v2-baseline",
+      "runs": [
+        "run_output/known-fair-v2-1"
+      ]
+    },
+    {
+      "name": "fair-clock-v3",
+      "project": ".local/versions/known-last-night-audit",
+      "runs": [
+        "run_output/known-fair-v3-1"
+      ],
+      "baseline": "fair-clock-v2"
+    }
+  ]
+}

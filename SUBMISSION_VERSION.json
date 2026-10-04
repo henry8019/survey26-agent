@@ -1,6 +1,6 @@
 {
   "selected": "last-night-audit",
-  "git_reference": "regression-v3-known-fixes",
+  "git_reference": "regression-v3.1-known-fixes",
   "validation_status": "example_regression_passed_official_score_pending",
   "frozen_project": ".local/versions/known-last-night-audit",
   "source_sha256": "af7a10bfcba08ba792ea62835cc86045933ed02641964763ff7fbf964889d96d",
@@ -61,7 +61,7 @@
   "max_model_http_attempts": 30,
   "max_model_seconds": 108.565,
   "max_wall_seconds": 493.219,
-  "unit_tests_passed": 125,
+  "unit_tests_passed": 126,
   "local_real_card_fibers": 16,
   "synthetic_covered_fibers": [
     9,
@@ -89,5 +89,29 @@
   "official_input_evidence": "reports/official-practice-inputs.json",
   "official_geometry_evidence": "reports/known-public-geometry.json",
   "official_scored_acceptance": false,
-  "platform_submitted": false
+  "platform_submitted": false,
+  "legacy_regression_unit_tests": 125,
+  "fair_clock_verification": {
+    "evidence": "reports/known-fair-clock-verification.json",
+    "platform": "Ubuntu-24.04 / Python 3.12.3",
+    "engine_source_commit": "fair-clock",
+    "engine_sha256": "8cf8dbc4f133c203313d47d7f82e010a78c91feb429c29a3d2080dbf3cafac0f",
+    "samples_per_card": 1,
+    "budget_charged_seconds": 900,
+    "real_time_hard_cap_seconds": 1800,
+    "baseline_mean": 4599.66239225,
+    "candidate_mean": 5407.38648275,
+    "baseline_min": 3945.215512,
+    "candidate_min": 4754.456396,
+    "required_missing_total": 10,
+    "baseline_required_missing_total": 17,
+    "relative_gain": 0.17560508176881395,
+    "all_complete": true,
+    "two_model_stages_verified": true,
+    "accepted": true,
+    "max_charged_seconds": 618.952,
+    "max_real_seconds": 506.361,
+    "model_attempts_max": 29,
+    "model_seconds_max": 116.9039
+  }
 }
