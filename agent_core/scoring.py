@@ -48,6 +48,10 @@ class ScoringModel:
         self.uniformity_band_width_deg = float(uniformity.get("ra_band_width_deg", 10.0))
         self.uniformity_threshold = float(uniformity.get("observed_factor_threshold", DEFAULT_REQUIRED_THRESHOLD))
 
+        reporting = scoring_config.get("reporting") or {}
+        self.correct_report_reward = float(reporting.get("correct_reward", 100.0))
+        self.false_report_penalty = float(reporting.get("false_penalty", -150.0))
+
         self.latitude_deg = float(site.get("latitude_deg", 0.0))
         self.longitude_deg = float(site.get("longitude_deg", 0.0))
 

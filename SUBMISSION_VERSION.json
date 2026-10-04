@@ -1,26 +1,29 @@
 {
-  "selected": "scheduling-anomaly-guard",
-  "git_reference": "validated-v2",
-  "frozen_project": ".local/versions/scheduling-anomaly-guard",
-  "source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+  "selected": "last-night-audit",
+  "git_reference": "regression-v3-known-fixes",
+  "validation_status": "example_regression_passed_official_score_pending",
+  "frozen_project": ".local/versions/known-last-night-audit",
+  "source_sha256": "af7a10bfcba08ba792ea62835cc86045933ed02641964763ff7fbf964889d96d",
   "source_files": {
     "agent.py": "3c51d8f38be68d54e39443dbe40ce2cbadd6c451b67f0bf1c0ce611ecbd718a6",
     "observer.project.json": "373d448f4193fbb5364edb347cc99d2468de98db253267e1267c26ac98e6c43b",
     "agent_core/__init__.py": "86f2aa3636a25e64fde75376458dbe0fa1efcbee58d18ee5cfc93322ccc45330",
-    "agent_core/advice.py": "81b56d81dad6eee7a1030f57f7c47f506b969790a1661ea050bcc53505bcc27f",
+    "agent_core/advice.py": "5870d4b73baa745ece96af872523f06851600636f67d8c458de7f4b9019c1262",
     "agent_core/calibration.py": "f6339f0144cb53e966302ec1fc5d1308e64b72073f5ad9852f440aa671bbc0ca",
+    "agent_core/exposure.py": "7030c2f138b1cb928cb0b077903ba4f2758bd5c389e2f98b02a5f36c9d0ab625",
     "agent_core/geometry.py": "4dff3dc2d6f449d43276747b38ebcc64275df43bfdbc5c10da10dea0fe37a73b",
     "agent_core/llm_client.py": "273fd5822fa475bbd0c832cdb563eab99b00f7ac309512439e8ed24cc177bbf3",
     "agent_core/memory.py": "50b85b4a71e0450b54eb9487d40da11fddc8c41199612fba3810ddddf0e8bbfa",
-    "agent_core/planner.py": "764b7520b26cbbc701d12069ffe7bfc33f4516c45f068ff538c97006e1907f77",
+    "agent_core/planner.py": "7adcd00e905ff63c5d30abfee5f5f8c56dffd514a17d428948e85b4fcaa61cdf",
     "agent_core/protocol.py": "470c26cae91e2d40fd629d31d024338e32a2ca645cec669cace2433f7e76edcf",
-    "agent_core/requests.py": "aa23973fa0b736996175b53381da990728e394e7849b9ada4a60389eccf23c58",
-    "agent_core/scoring.py": "9634425e655903a3fd42875fa6d1d0a79970cdf45430965f6cf4b9086e43882c",
-    "agent_core/state.py": "ef35ecc4686e34cbab0133252ba273e68a82fa23d6bb7b9e9ffdb6df2c9966c4",
+    "agent_core/requests.py": "40f77cc359ab5370497a1c96bc7fa3086300028f7da23883daabf231cc036642",
+    "agent_core/scoring.py": "da7bd31b72745fc1dc0a2351029545b6666ddb57bf2c4b955363a1b268b2df02",
+    "agent_core/state.py": "13405b810a05c883b2503f5a5d70939481abf504cc4feae54e24c16fd9dc3c18",
     "agent_core/validation.py": "3cb5947a9ebf8d5c5de1b611ad40ad8cbdbc8b21c418b13a33a1c93896f00759"
   },
-  "previous_source_sha256": "d8e82b2ae3cc746d857eabae31d33bb925395b699ce8f4f6a4bf6821b4ff8411",
-  "previous_git_reference": "validated-v1",
+  "previous_source_sha256": "b30b40ea932801b29408d2a41e786bc12a04c10bff0b7d4dd8ba9ff9903d86cc",
+  "previous_git_reference": "validated-v2",
+  "latest_accepted_comparison_baseline_source_sha256": "a63c0726e9a42e086b2c131d0d04685b0f8ce6f450b2214dc3e1c7e8061b7e06",
   "model_configuration": {
     "call_timeout_seconds": 8.0,
     "total_budget_seconds": 150.0,
@@ -34,34 +37,57 @@
     "wallclock_limit_seconds": 900
   },
   "real_evaluation_runs": [
-    "run_output/scheduling-anomaly-guard-1",
-    "run_output/scheduling-anomaly-guard-2",
-    "run_output/scheduling-anomaly-guard-3"
+    "run_output/known-last-night-1",
+    "run_output/known-last-night-2",
+    "run_output/known-last-night-3"
   ],
+  "card_set": "examples",
   "samples_per_card": 3,
-  "median_mean": 4603.4482215,
-  "median_minimum": 3935.053165,
-  "median_required_missing_total": 16,
+  "median_mean": 5398.3017965,
+  "median_minimum": 4666.671979,
+  "median_required_missing_total": 10,
   "whole_evaluation_medians": {
-    "mean": 4598.92551375,
-    "minimum": 3935.053165,
-    "required_missing_total": 16
+    "mean": 5396.76808575,
+    "minimum": 4666.671979,
+    "required_missing_total": 10
   },
   "acceptance": {
-    "per_card": true,
-    "whole_evaluation": true,
+    "per_card_accepted": true,
     "two_model_stages_verified": true,
-    "accepted": true
+    "accepted": true,
+    "all_complete": true
   },
-  "max_model_http_attempts": 33,
-  "max_model_seconds": 131.454,
-  "max_wall_seconds": 164.61,
-  "unit_tests_passed": 72,
+  "whole_evaluation_accepted": true,
+  "max_model_http_attempts": 30,
+  "max_model_seconds": 108.565,
+  "max_wall_seconds": 493.219,
+  "unit_tests_passed": 125,
   "local_real_card_fibers": 16,
-  "rejected_scheduling_candidates": [
-    "scheduling-rate-candidate",
-    "scheduling-required-guard"
+  "synthetic_covered_fibers": [
+    9,
+    16,
+    25,
+    100
   ],
-  "evidence": "reports/scheduling-optimization.json",
+  "public_official_geometry_samples": 12,
+  "lookahead_runtime_enabled": true,
+  "rejected_candidates": [
+    "joint-rejected",
+    "strict-reporting-rejected",
+    "joint-only",
+    "joint-broader-lookahead",
+    "boundaries",
+    "approved-requests",
+    "short-evidence",
+    "uncensored-quality",
+    "reviewed-fixes"
+  ],
+  "candidate_zip": "../survey-agent-known-fixes.zip",
+  "previous_fallback_zip": "../survey-agent.zip",
+  "previous_fallback_zip_sha256": "fb32c894a15a5a4adf17ad45096f2732698380ac7db3cb827119d2f79f7aa0a9",
+  "evidence": "reports/known-issues-optimization.json",
+  "official_input_evidence": "reports/official-practice-inputs.json",
+  "official_geometry_evidence": "reports/known-public-geometry.json",
+  "official_scored_acceptance": false,
   "platform_submitted": false
 }

@@ -1,6 +1,6 @@
-> Current project: [PROJECT.md](PROJECT.md). Selected scheduling strategy and real Kimi validation: [SCHEDULING.md](SCHEDULING.md). Package identity: [SUBMISSION_VERSION.json](SUBMISSION_VERSION.json).
+> Current project: [PROJECT.md](PROJECT.md). Known fixes, real Kimi regression and official input status: [KNOWN_ISSUES.md](KNOWN_ISSUES.md). Package identity: [SUBMISSION_VERSION.json](SUBMISSION_VERSION.json).
 
-> Current benchmark evidence: [reports/scheduling-optimization.json](reports/scheduling-optimization.json). Earlier rounds and the v1 retrospective: [OPTIMIZATION.md](OPTIMIZATION.md), [REVIEW.md](REVIEW.md). The example documentation below is preserved from upstream; use PROJECT.md for current behavior and configuration.
+> Historical v2 benchmark: [SCHEDULING.md](SCHEDULING.md). Earlier rounds and the v1 retrospective: [OPTIMIZATION.md](OPTIMIZATION.md), [REVIEW.md](REVIEW.md). The example documentation below is preserved from upstream; use PROJECT.md for current behavior and configuration. Example L1-L4 scores do not establish official alpha-delta or hidden performance.
 
 # python-agent -- an example agent for participant-agent-protocol-v4
 

@@ -1,0 +1,156 @@
+{
+  "selected": "last-night-audit",
+  "card_set": "examples",
+  "official_scored_acceptance": false,
+  "experiments": [
+    {
+      "name": "v2-baseline",
+      "project": ".local/versions/official-v2-baseline",
+      "runs": [
+        "run_output/known-v2-baseline-1",
+        "run_output/known-v2-baseline-2",
+        "run_output/known-v2-baseline-3"
+      ]
+    },
+    {
+      "name": "events",
+      "project": ".local/versions/known-events-fixed",
+      "runs": [
+        "run_output/known-events-1",
+        "run_output/known-events-2",
+        "run_output/known-events-3"
+      ],
+      "baseline": "v2-baseline"
+    },
+    {
+      "name": "joint-rejected",
+      "project": ".local/versions/known-joint-targets",
+      "runs": [
+        "run_output/known-joint-1",
+        "run_output/known-joint-2",
+        "run_output/known-joint-3"
+      ],
+      "baseline": "events"
+    },
+    {
+      "name": "strict-reporting-rejected",
+      "project": ".local/versions/known-engineering",
+      "runs": [
+        "run_output/known-engineering-1",
+        "run_output/known-engineering-2",
+        "run_output/known-engineering-3"
+      ],
+      "baseline": "events"
+    },
+    {
+      "name": "configured-reporting",
+      "project": ".local/versions/known-free-engineering",
+      "runs": [
+        "run_output/known-free-engineering-1",
+        "run_output/known-free-engineering-2",
+        "run_output/known-free-engineering-3"
+      ],
+      "baseline": "events"
+    },
+    {
+      "name": "joint-only",
+      "project": ".local/versions/known-free-joint",
+      "runs": [
+        "run_output/known-free-joint-1",
+        "run_output/known-free-joint-2",
+        "run_output/known-free-joint-3"
+      ],
+      "baseline": "configured-reporting"
+    },
+    {
+      "name": "joint-broader",
+      "project": ".local/versions/known-free-broad",
+      "runs": [
+        "run_output/known-free-broad-1",
+        "run_output/known-free-broad-2",
+        "run_output/known-free-broad-3"
+      ],
+      "baseline": "configured-reporting"
+    },
+    {
+      "name": "joint-broader-lookahead",
+      "project": ".local/versions/known-free-report-final2",
+      "runs": [
+        "run_output/known-final-1",
+        "run_output/known-final-2",
+        "run_output/known-final-3"
+      ],
+      "baseline": "joint-broader"
+    },
+    {
+      "name": "boundaries",
+      "project": ".local/versions/known-boundaries",
+      "runs": [
+        "run_output/known-boundaries-1",
+        "run_output/known-boundaries-2",
+        "run_output/known-boundaries-3"
+      ],
+      "baseline": "joint-broader"
+    },
+    {
+      "name": "approved-requests",
+      "project": ".local/versions/known-approved-requests",
+      "runs": [
+        "run_output/known-approved-requests-1",
+        "run_output/known-approved-requests-2",
+        "run_output/known-approved-requests-3"
+      ],
+      "baseline": "joint-broader"
+    },
+    {
+      "name": "short-evidence",
+      "project": ".local/versions/known-short-evidence",
+      "runs": [
+        "run_output/known-short-evidence-1",
+        "run_output/known-short-evidence-2",
+        "run_output/known-short-evidence-3"
+      ],
+      "baseline": "joint-broader"
+    },
+    {
+      "name": "uncensored-quality",
+      "project": ".local/versions/known-uncensored-quality",
+      "runs": [
+        "run_output/known-uncensored-quality-1",
+        "run_output/known-uncensored-quality-2",
+        "run_output/known-uncensored-quality-3"
+      ],
+      "baseline": "joint-broader"
+    },
+    {
+      "name": "active-calibration",
+      "project": ".local/versions/known-active-calibration",
+      "runs": [
+        "run_output/known-active-calibration-1",
+        "run_output/known-active-calibration-2",
+        "run_output/known-active-calibration-3"
+      ],
+      "baseline": "joint-broader"
+    },
+    {
+      "name": "reviewed-fixes",
+      "project": ".local/versions/known-reviewed-fixes",
+      "runs": [
+        "run_output/known-reviewed-1",
+        "run_output/known-reviewed-2",
+        "run_output/known-reviewed-3"
+      ],
+      "baseline": "active-calibration"
+    },
+    {
+      "name": "last-night-audit",
+      "project": ".local/versions/known-last-night-audit",
+      "runs": [
+        "run_output/known-last-night-1",
+        "run_output/known-last-night-2",
+        "run_output/known-last-night-3"
+      ],
+      "baseline": "active-calibration"
+    }
+  ]
+}

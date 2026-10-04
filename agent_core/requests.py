@@ -52,6 +52,48 @@ class RequestPlanner:
                 probe += timedelta(seconds=max(state.min_exposure, 600))
         return None
 
+    def _observing_seconds(self, start, end):
+        return sum(max(0.0, (min(night_end, end) - max(night_start, start)).total_seconds())
+                   for night_start, night_end in self.state.nights)
+
+    def assess_execution(self, bundle, action, now, normal_rate, prefer_requests=False):
+        """Price the actual first exposure and recheck the remainder without writing progress."""
+        request = self.requests.get(bundle["request_id"])
+        if request is None:
+            return None
+        state = self.state
+        issued, deadline = parse_utc(request["issued_at_utc"]), parse_utc(request["deadline_utc"])
+        cursor = now + timedelta(seconds=action["duration_seconds"])
+        if now < issued or cursor > deadline:
+            return None
+        threshold = float(request["completion_factor_threshold"])
+        predicted = set()
+        targets = set(request["target_ids"])
+        for target in action["assignments"].values():
+            prediction = state.pending.get(target)
+            if target in targets and prediction is not None:
+                i = state.index_of[target]
+                factor = state.scoring.completion_factor(state.flux[i], action["duration_seconds"],
+                                                        prediction.model * state.scale * .9)
+                if factor >= threshold:
+                    predicted.add(target)
+        done = self.completed(request)
+        if not predicted - done:
+            return None
+        remaining = max(0, int(request["minimum_completed"]) - len(done | predicted))
+        pool = [i for i in bundle.get("bundle", []) if state.ids[i] not in done | predicted]
+        if len(pool) < remaining:
+            return None
+        for i in pool[:remaining]:
+            slot = self._slot(i, cursor, deadline, threshold)
+            if slot is None:
+                return None
+            cursor = slot[0] + timedelta(seconds=slot[1])
+        cost = self._observing_seconds(now, cursor)
+        margin = .10 if prefer_requests else .20
+        net = float(request["completion_reward"]) - normal_rate * cost * (1 + margin)
+        return {"actual_bundle_cost_seconds": cost, "actual_bundle_net": net} if net > 0 else None
+
     def choose(self, now, normal_rate, prefer_requests=False):
         state = self.state
         best = None
@@ -81,18 +123,18 @@ class RequestPlanner:
                 if number >= 64:
                     break
                 ordered = sorted(subset, key=lambda row: row[3])
-                cursor, cost, feasible = earliest, 0, True
+                cursor, feasible = earliest, True
                 for i, start, duration, setting in ordered:
                     slot = self._slot(i, max(cursor, start), deadline, threshold)
                     if slot is None:
                         feasible = False
                         break
                     cursor = slot[0] + timedelta(seconds=slot[1])
-                    cost += slot[1]
                 if not feasible:
                     continue
-                # Reward is valued ONCE per complete bundle. Forecasted ordinary
-                # science is conservatively charged for all dedicated seconds.
+                # Reward is valued once. Charge observable waiting gaps too;
+                # daytime between nights consumes no scientific opportunity.
+                cost = self._observing_seconds(earliest, cursor)
                 opportunity = normal_rate * cost
                 margin = .10 if prefer_requests else .20
                 net = float(request["completion_reward"]) - opportunity * (1 + margin)

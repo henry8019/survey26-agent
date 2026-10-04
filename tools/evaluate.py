@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+from card_sets import CARD_SETS, require_runnable
 
 
 def main():
@@ -14,7 +15,13 @@ def main():
     parser.add_argument("--project", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--jobs", type=int, choices=(1, 2), default=2)
+    parser.add_argument("--card-set", choices=CARD_SETS, default="official")
     args = parser.parse_args()
+    for card in CARD_SETS[args.card_set]:
+        try:
+            require_runnable(card)
+        except ValueError as exc:
+            parser.error(str(exc))
     if args.out.exists():
         parser.error("output directory already exists")
     args.out.mkdir(parents=True)
@@ -30,7 +37,7 @@ def main():
         return result
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as executor:
-        results = list(executor.map(run, ("L1", "L2", "L3", "L4")))
+        results = list(executor.map(run, CARD_SETS[args.card_set]))
     (args.out / "summary.json").write_text(json.dumps({"runs": results}, ensure_ascii=False, indent=2), encoding="utf-8")
     return 0 if all(r["termination_reason"] == "survey_complete" for r in results) else 2
 

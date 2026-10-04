@@ -1,0 +1,108 @@
+{
+  "source": "https://create.gosim.org/survey26/platform/resources",
+  "downloaded_at_utc": "2026-10-04T05:19:56.493694+00:00",
+  "cards": {
+    "alpha": {
+      "slug": "v4-practice-alpha",
+      "files": {
+        "config/v4_fiber_config.json": "85fc175cb198b1c65d33a123cfbc8b6c1deb10778eef0dbfa659156918e23c8f",
+        "config/v4_scenario.json": "8910f40c25eddaec7db772277b8e89fad7968a0f0ef68992e3d74a256481ce9d",
+        "config/v4_score_config.json": "8b2dd879a684e8dc51e2a3f33dfe6301c277b7f0ee95415c6649498d3a8784cd",
+        "public/footprint.csv": "6f62b8733c3d0a405bde82a131110b28b383f01f91bac6e6324fb3f0661b8882",
+        "public/targets.csv": "73242c16513c33f61dbe6cd96a358447e35267d1de6d7cef7cc4b71fad0ae0bc",
+        "public/v4_night_calendar.csv": "313243fdf7aba33fa476e4c31403ba08ee3b90c354c7bb0f82d102122d78be3c"
+      },
+      "sha256": "e5bae6564c022f0bc77c1294b4ae3f7d185940fa83bb80ffa98c189dd5d4c8e5",
+      "missing_products": [
+        "public/v4_bulletins.jsonl",
+        "public/v4_forecasts.jsonl",
+        "truth/v4_earthquake_effects.csv",
+        "truth/v4_events.csv",
+        "truth/v4_observation_requests.jsonl",
+        "truth/v4_slots.csv",
+        "truth/v4_weather_truth.csv"
+      ],
+      "runnable": false,
+      "source": "https://create.gosim.org/survey26/platform/cards/alpha"
+    },
+    "beta": {
+      "slug": "v4-practice-beta",
+      "files": {
+        "config/v4_fiber_config.json": "85fc175cb198b1c65d33a123cfbc8b6c1deb10778eef0dbfa659156918e23c8f",
+        "config/v4_scenario.json": "fbfc80887b0d50290d4bd20eb60a270111913c1cb6068a0b051010dd01c37c3c",
+        "config/v4_score_config.json": "8b2dd879a684e8dc51e2a3f33dfe6301c277b7f0ee95415c6649498d3a8784cd",
+        "public/footprint.csv": "6437c9db4bb9d71f432b5b10eb953b8df4995435b75b232734f3beb5b92bd960",
+        "public/targets.csv": "4769aa6f76cd0225d58dff58e2cf8628ec4c95c9839d946bc8a80aa23cc0b166",
+        "public/v4_night_calendar.csv": "32813747337d6d2057a93ea7bb99e90fa52d0ea2b3701f0d87a0eaf135a577b5"
+      },
+      "sha256": "72de49d7bfe05e45d39b802c5bc6564d4274bf2e5a67737b727bca1b2f698ae7",
+      "missing_products": [
+        "public/v4_bulletins.jsonl",
+        "public/v4_forecasts.jsonl",
+        "truth/v4_earthquake_effects.csv",
+        "truth/v4_events.csv",
+        "truth/v4_observation_requests.jsonl",
+        "truth/v4_slots.csv",
+        "truth/v4_weather_truth.csv"
+      ],
+      "runnable": false,
+      "source": "https://create.gosim.org/survey26/platform/cards/beta"
+    },
+    "gamma": {
+      "slug": "v4-practice-gamma",
+      "files": {
+        "config/v4_fiber_config.json": "85fc175cb198b1c65d33a123cfbc8b6c1deb10778eef0dbfa659156918e23c8f",
+        "config/v4_scenario.json": "2008e58fe43ed2c510466e626a1f00d52021a586f6fc6694f03fbf452e8335b1",
+        "config/v4_score_config.json": "8b2dd879a684e8dc51e2a3f33dfe6301c277b7f0ee95415c6649498d3a8784cd",
+        "public/footprint.csv": "da1bcfe970819a110034caf5212eddad4c7342762f1f574fb90d5facbce4263b",
+        "public/targets.csv": "3de3c2e917fab98d0e81f8280f512f85dbebf4576cd611ea1efe52c8c9e2d488",
+        "public/v4_night_calendar.csv": "55da1bc4ab5dbbafd19c24abc01eedf5278b11552ecb04bd8a36c784734d6a16"
+      },
+      "sha256": "e8634452a0f486064180917b0bc63204458ab9ff7ee4d31be5e06ca42492dc4a",
+      "missing_products": [
+        "public/v4_bulletins.jsonl",
+        "public/v4_forecasts.jsonl",
+        "truth/v4_earthquake_effects.csv",
+        "truth/v4_events.csv",
+        "truth/v4_observation_requests.jsonl",
+        "truth/v4_slots.csv",
+        "truth/v4_weather_truth.csv"
+      ],
+      "runnable": false,
+      "source": "https://create.gosim.org/survey26/platform/cards/gamma"
+    },
+    "delta": {
+      "slug": "v4-practice-delta",
+      "files": {
+        "config/v4_fiber_config.json": "85fc175cb198b1c65d33a123cfbc8b6c1deb10778eef0dbfa659156918e23c8f",
+        "config/v4_scenario.json": "f189487ee3c40dd082be08f8d11890949d36d8a21c91715459d6cc4c47cb759a",
+        "config/v4_score_config.json": "8b2dd879a684e8dc51e2a3f33dfe6301c277b7f0ee95415c6649498d3a8784cd",
+        "public/footprint.csv": "d33e3040681aa36993ab98c28205ecc4e4800a7b4452d197bfaf69cc261835fe",
+        "public/targets.csv": "a9bcbe621df83bbe074075f1a786e80490dd578fbc145b028cdc30ced220f2ea",
+        "public/v4_night_calendar.csv": "81f8cdcdd099f2f4cb8c6216577c7274d2fe7188b68a3acff5ca1f5ad3f6c2d4"
+      },
+      "sha256": "d86050b531ca5e782fba628e9971352c2a15b87cb47c9226bfc1fe6b12ecae49",
+      "missing_products": [
+        "public/v4_bulletins.jsonl",
+        "public/v4_forecasts.jsonl",
+        "truth/v4_earthquake_effects.csv",
+        "truth/v4_events.csv",
+        "truth/v4_observation_requests.jsonl",
+        "truth/v4_slots.csv",
+        "truth/v4_weather_truth.csv"
+      ],
+      "runnable": false,
+      "source": "https://create.gosim.org/survey26/platform/cards/delta"
+    }
+  },
+  "note": "Anonymous official exporter only supplies public practice products. Missing replay products prevent a scored official baseline. Example L1-L4 are a separate auxiliary regression dataset.",
+  "checked_at_utc": "2026-10-04T05:19:56.493694+00:00",
+  "website_observation": {
+    "date_utc": "2026-10-04",
+    "source": "https://create.gosim.org/survey26/platform/cards/alpha",
+    "signed_in_browser": true,
+    "listed_download_files": 6,
+    "weather_label": "不公开",
+    "notes": "当前登录后的卡片页面与公开下载源一致：只有六个文件。与先前提供的练习卡全部文件公开规则文本存在差异。保留当前来源及哈希，不用示例数据或合成天气替代官方完整评分；云端官方评分仍待进行。"
+  }
+}

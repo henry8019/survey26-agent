@@ -24,6 +24,23 @@ class AdviceController:
         self.missed_exposures = 0
         self.applied_stages = set()
         self.urgent_requests = set()
+        self.pending_events = {}
+        self.seen_events = set()
+
+    def _queue_events(self, payload):
+        for message in payload.get("new_messages", []):
+            kind = message.get("record_type")
+            if kind not in {"state_resync", "observation_request", "observation_request_result"}:
+                continue
+            # Include the complete public revision, not just event type/night.
+            # Corrected results for one request must trigger a fresh adjustment.
+            identity = hashlib.sha256(json.dumps(message, sort_keys=True).encode()).hexdigest()
+            if identity not in self.seen_events:
+                self.seen_events.add(identity)
+                self.pending_events[identity] = {"trigger": "state_resync" if kind == "state_resync" else "request",
+                                                  "record_type": kind, "request_id": message.get("request_id"),
+                                                  "invalidated_window": message.get("invalidated_window"),
+                                                  "revised": message.get("revised", False)}
 
     def _ask(self, phase, prompt, data, remaining):
         allowance = 24 if phase == "message_understanding" else 16
@@ -107,20 +124,21 @@ class AdviceController:
         result = payload.get("last_result") or {}
         if result.get("action") == "observe":
             self.missed_exposures = self.missed_exposures + 1 if result.get("assigned_count", 0) and result.get("hit_count", 0) == 0 else 0
-        kinds = {m.get("record_type") for m in payload.get("new_messages", [])}
+        self._queue_events(payload)
         evidence = state.fault_evidence()
+        queued = list(self.pending_events.values())
         trigger = ("initial" if self.last_night is None else
-                   "state_resync" if "state_resync" in kinds else
-                   "request" if "observation_request" in kinds or "observation_request_result" in kinds else
+                   "state_resync" if any(e["trigger"] == "state_resync" for e in queued) else
+                   "request" if queued else
                    "geometry_misses" if self.missed_exposures >= 3 else
                    "quality_drop" if evidence is not None and evidence.drop < .65 else None)
         cooldown = self.last_replan is None or (now - self.last_replan).total_seconds() >= 2 * state.slot_seconds
-        if trigger is not None and cooldown and (trigger != self.last_trigger or self.last_night != night_index):
+        if trigger is not None and cooldown and (queued or trigger != self.last_trigger or self.last_night != night_index):
             remaining = max(0.0, remaining - (time.monotonic() - started))
             answer = self._ask("plan_adaptation",
                                'Adapt a telescope survey plan using the public progress and evidence. Output only {"priority":"required|requests|survey|diagnostic","reason":"brief evidence"}. '
                                'Required targets carry large penalties. Requests are worthwhile only if feasible. Diagnostic is for repeated geometric misses or unexplained quality drops. Never output an action or overwrite progress.',
-                               {"trigger": trigger, "required_remaining": sum(r and f < state.scoring.required_threshold for r, f in zip(state.required, state.factor)),
+                               {"trigger": trigger, "events": queued, "required_remaining": sum(r and f < state.scoring.required_threshold for r, f in zip(state.required, state.factor)),
                                 "requests": [{k: r.get(k) for k in ("request_id", "remaining_count", "minimum_completed", "deadline_utc", "completion_reward")} for r in requests],
                                 "interpreted_urgent_requests": sorted(self.urgent_requests),
                                 "fault_evidence": evidence._asdict() if evidence else None,
@@ -139,7 +157,9 @@ class AdviceController:
                 self.applied_stages.add("plan_adaptation")
             self.last_replan, self.last_trigger = now, trigger
             self.trace.write({"event": "model_advice_applied", "stage": "plan_adaptation", "accepted": valid,
-                              "trigger": trigger, "priority": self.priority})
+                              "trigger": trigger, "event_ids": list(self.pending_events),
+                              "priority": self.priority})
+            self.pending_events.clear()
         if self.priority_night != night_index or (self.priority == "requests" and not requests):
             self.priority = "required"
         self.last_night = night_index

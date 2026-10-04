@@ -21,6 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNNER = ROOT / ".local" / "runner"
+from card_sets import CARD_SETS, card_path, require_runnable
 
 
 class NeutralModel(BaseHTTPRequestHandler):
@@ -46,12 +47,18 @@ class NeutralModel(BaseHTTPRequestHandler):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--card", choices=["L1", "L2", "L3", "L4", "all"], default="L1")
+    parser.add_argument("--card", choices=[*sum(CARD_SETS.values(), ()), "all"], default="alpha")
+    parser.add_argument("--card-set", choices=CARD_SETS, default="official")
     parser.add_argument("--wallclock", type=float, default=900)
     parser.add_argument("--mock-model", action="store_true")
     parser.add_argument("--out", type=Path)
     parser.add_argument("--project", type=Path, default=ROOT)
     args = parser.parse_args()
+    for card in (CARD_SETS[args.card_set] if args.card == "all" else [args.card]):
+        try:
+            require_runnable(card)
+        except ValueError as exc:
+            parser.error(str(exc))
     project = args.project.resolve()
     if not math.isfinite(args.wallclock) or not 0 < args.wallclock <= 900:
         parser.error("--wallclock must be between 0 and 900 seconds")
@@ -100,7 +107,7 @@ def main():
     source_hashes = {p.relative_to(project).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in source_files}
     fingerprint = hashlib.sha256(json.dumps(source_hashes, sort_keys=True).encode()).hexdigest()
     try:
-        for card in (["L1", "L2", "L3", "L4"] if args.card == "all" else [args.card]):
+        for card in (CARD_SETS[args.card_set] if args.card == "all" else [args.card]):
             if any(hashlib.sha256((project / name).read_bytes()).hexdigest() != digest for name, digest in source_hashes.items()):
                 raise RuntimeError("evaluation source changed; freeze the project before evaluating")
             (output / card).mkdir(parents=True)
@@ -113,15 +120,22 @@ def main():
             captured = io.StringIO()
             with contextlib.redirect_stdout(captured):
                 status = run_local.main([
-                    "--card", str(ROOT / ".local" / "local-cards" / card),
+                    "--card", str(card_path(card)),
                     "--agent", command, "--agent-cwd", str(project),
                     "--wallclock", str(args.wallclock), "--out", str(output / card), "--quiet",
                 ])
             summary = json.loads(captured.getvalue())
+            summary["official_card_id"] = summary["card"]
+            summary["card"] = card
+            input_hashes = {p.relative_to(card_path(card)).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+                            for p in sorted(card_path(card).rglob("*")) if p.is_file()}
+            summary["card_sha256"] = hashlib.sha256(json.dumps(input_hashes, sort_keys=True).encode()).hexdigest()
+            summary["card_source"] = ("https://create.gosim.org/survey26/platform/cards/" + card
+                                      if card in CARD_SETS["official"] else "UPSTREAM.json example archive")
             summary["model_mode"] = "mock-neutral" if args.mock_model else "configured-api"
             summary["requested_wallclock_seconds"] = args.wallclock
             summary["source_sha256"] = fingerprint
-            summary["model"] = "neutral-fixture" if args.mock_model else credentials.get("OPENAI_MODEL", "k3")
+            summary["model"] = "neutral-fixture" if args.mock_model else credentials.get("OPENAI_MODEL", credentials.get("KIMI_MODEL", "k3"))
             trace_path = output / card / "model_trace.jsonl"
             trace = [json.loads(line) for line in trace_path.read_text(encoding="utf-8").splitlines()] if trace_path.exists() else []
             calls = [r for r in trace if r.get("event") == "model_call"]
@@ -148,7 +162,7 @@ def main():
             "runs": summaries,
             "source_files": source_hashes,
             "mock_model_calls": NeutralModel.calls if args.mock_model else None,
-            "note": "Mock scores use fixed advice, not Kimi. Local cards L1-L4 are not the online or hidden cards.",
+            "note": "Mock scores are not Kimi benchmarks. alpha-delta are official practice; L1-L4 are example cards. Neither is the formal or hidden evaluation.",
         }, ensure_ascii=False, indent=2), encoding="utf-8")
     return 2 if failed else 0
 

@@ -1,6 +1,9 @@
-# 指向与曝光联合搜索：2026-10-04
+# v2 指向与曝光联合搜索：2026-10-04
 
-本轮已通过真实 Kimi 四卡验收。当前提交源码为 `scheduling-anomaly-guard`，
+本文保留 `validated-v2` 的历史实验。后续已知问题修复和官方输入核对见
+[KNOWN_ISSUES.md](KNOWN_ISSUES.md)，当前交付身份见 `SUBMISSION_VERSION.json`。
+
+本轮通过示例 L1–L4 的真实 Kimi 回归验收，当时采用源码为 `scheduling-anomaly-guard`，
 各卡三次得分中位数的平均值为 4603.45，最低值为 3935.05，必观测漏数总和为 16。
 相对重新评测的 v1 对照，分别提高 2.19%、0.78%，漏数减少 2 个。
 完整机器可读证据见 [reports/scheduling-optimization.json](reports/scheduling-optimization.json)，

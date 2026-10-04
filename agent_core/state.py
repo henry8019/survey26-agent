@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import bisect
 import math
+import statistics
 from collections import deque
 from typing import NamedTuple, Optional
 
@@ -41,6 +42,12 @@ class FaultEvidence(NamedTuple):
     earlier_samples: int
     dark_checks: int
     dark_matched: int
+
+
+class BlockedPatch(NamedTuple):
+    az: float
+    alt: float
+    expires_hours: float
 
 
 class ExposureRecord(NamedTuple):
@@ -91,6 +98,7 @@ class SurveyState:
         reporting = init_payload.get("scoring", {}).get("reporting", {})
         self.max_consecutive_reports = int(reporting.get("max_consecutive_reports", limits.get("max_consecutive_reports", 32)))
         self.false_report_free_allowance = int(reporting.get("false_report_free_allowance", 0))
+        self.false_reports_since_correct = 0
         self.response_max_bytes = int(limits.get("response_max_bytes", 524288))
 
         # Parallel arrays, one slot per target, in catalogue order.
@@ -133,13 +141,15 @@ class SurveyState:
         self._samples: deque = deque(maxlen=24)           # (hours, ratio)
         self._all_ratios: deque = deque(maxlen=400)        # ratio
         self.clean_history: list[tuple[float, int, float]] = []  # (hours, night, ratio)
+        self.clean_intervals = []  # (hours, night, lower ratio, upper ratio)
+        self.censored_exposures = deque(maxlen=24)
         self.pending_night = -1
         self._band_checks: deque = deque(maxlen=60)        # (program, matched, model)
         self.force_program: Optional[str] = None
         self.pending: dict[str, PendingPrediction] = {}
         self.pending_program = "BACKUP"
         self.pending_duration = 0
-        self.blocked: list[tuple[float, float]] = []       # (az, alt) where a hit scored zero
+        self.blocked: list[BlockedPatch] = []  # Temporary evidence from mixed positive/zero hits.
         self.notices: set[str] = set()                      # "kind|direction"
         self.terrain: set[str] = set()
         self.extra_avoid: set[str] = set()
@@ -227,8 +237,11 @@ class SurveyState:
             elif message.get("record_type") == "state_resync":
                 self._resync(message)
         notices = (latest_bulletin or {}).get("notices", [])
-        self.notices = {f"{n.get('event_kind')}|{n.get('direction')}" for n in notices
-                        if n.get("event_kind") != "terrain_obstruction"}
+        current = {f"{n.get('event_kind')}|{n.get('direction')}" for n in notices
+                   if n.get("event_kind") != "terrain_obstruction"}
+        if current != self.notices:
+            self.blocked.clear()  # An old local weather inference cannot outlive its source conditions.
+        self.notices = current
 
     def factor_bounds(self, i, score, program=None):
         """All factors consistent with a rounded score and legal multipliers."""
@@ -285,8 +298,15 @@ class SurveyState:
         return any(key.partition("|")[2] == "ALL" for key in self.notices)
 
     def on_result(self, last_result: Optional[dict], hours: float) -> None:
+        self.blocked = [patch for patch in self.blocked if patch.expires_hours > hours]
         action_index = self.pending_action_index
         self.pending_action_index = None
+        if last_result and last_result.get("action") == "report":
+            if last_result.get("correct") is True:
+                self.false_reports_since_correct = 0
+                self.forget_quality_history()
+            elif last_result.get("correct") is False:
+                self.false_reports_since_correct += 1
         if not last_result or last_result.get("action") != "observe" or not self.pending:
             self.pending.clear()
             return
@@ -297,6 +317,7 @@ class SurveyState:
         mismatch = scoring.mismatch_multiplier
         declared_multiplier = multipliers.get(self.pending_program, 1.0)
         f0t0 = scoring.f0t0
+        censored_clean = 0
         if self.pending_start is not None:
             self.pending_duration = min(self.pending_duration, max(1.0, hours * 3600 - (self.pending_start - self.survey_start).total_seconds()))
 
@@ -314,7 +335,8 @@ class SurveyState:
                 if action_index is not None:
                     self._record_hit(action_index, target_id, score, lower, upper, 0, hours)
                 if any_positive:
-                    self.blocked.append((prediction.az, prediction.alt))
+                    self.blocked.append(BlockedPatch(prediction.az, prediction.alt, hours + SKY_MEMORY_HOURS))
+                    self.blocked = self.blocked[-40:]
                 continue
             weight = self.weight[i] if self.weight[i] > 0 else 1e-9
             multiplier_seen = score / weight
@@ -332,20 +354,30 @@ class SurveyState:
             factor = factor_if_match if matched else factor_if_miss
             factor = min(1.0, factor)
             lower, upper = self.factor_bounds(i, score, self.pending_program)
+            if prediction.clean and upper >= .97:
+                censored_clean += 1
             self.factor[i] = max(self.factor[i], lower)
             self.factor_upper[i] = max(self.factor_upper[i], upper)
             self.factor_estimate[i] = max(self.factor_estimate[i], factor)
             self.best_score[i] = max(self.best_score[i], score)
             if action_index is not None:
                 self._record_hit(action_index, target_id, score, lower, upper, factor, hours)
+            if prediction.clean and upper < .97 and self.flux[i] > 0 and self.pending_duration > 0 and prediction.model > 0:
+                denominator = self.flux[i] * self.pending_duration * prediction.model / f0t0
+                self.clean_intervals.append((hours, self.pending_night, lower / denominator, upper / denominator))
             if self.required[i] and self.factor[i] < scoring.required_threshold:
                 self.attempts[i] += 1
-            if factor < 0.97 and self.flux[i] > 0 and self.pending_duration > 0 and prediction.model > 0:
+            # If any legal interpretation is saturated, throughput has only a
+            # lower bound. A guessed partial interpretation is not an exact
+            # quality sample and must not pull the learned scale downward.
+            if upper < 0.97 and self.flux[i] > 0 and self.pending_duration > 0 and prediction.model > 0:
                 ratio = (factor * f0t0) / (self.flux[i] * self.pending_duration * prediction.model)
                 self._samples.append((hours, ratio))
                 self._all_ratios.append(ratio)
                 if prediction.clean:
                     self.clean_history.append((hours, self.pending_night, ratio))
+        if censored_clean >= 3:
+            self.censored_exposures.append((hours, self.pending_night))
         self.pending.clear()
         self.update_scale(hours)
 
@@ -369,36 +401,56 @@ class SurveyState:
 
     # -- fault diagnostics ------------------------------------------------------
 
-    def fault_evidence(self) -> Optional[FaultEvidence]:
-        history = self.clean_history
-        if len(history) < RECENT_SAMPLES + EARLIER_SAMPLES:
+    def calibration_due(self, hours, night_index):
+        """Only own feedback can establish that throughput is poorly sampled."""
+        fresh = {hour for hour, night, _lower, _upper in self.clean_intervals
+                 if night == night_index and hour >= hours - 2}
+        censored = {hour for hour, night in self.censored_exposures
+                    if night == night_index and hour >= hours - 2}
+        return len(fresh) < 2 and len(censored) >= 4
+
+    def fault_evidence(self, recent_night_count=2, min_night_exposures=4) -> Optional[FaultEvidence]:
+        # Targets from the same exposure share weather and time. Aggregate them
+        # first, then require a drop on two separate nights. A fixed tail of 60
+        # targets ceases to span nights when a scheduler takes shorter exposures.
+        groups = {}
+        for hour, night, lower, upper in self.clean_intervals:
+            groups.setdefault((hour, night), []).append((lower, upper))
+        nights = sorted({night for _, night in groups})
+        if len(nights) < recent_night_count + 1:
             return None
-        recent = history[-RECENT_SAMPLES:]
-        earlier = history[:-RECENT_SAMPLES]
-        span = recent[-1][0] - recent[0][0]
-        nights = len({night for _, night, _ in recent})
-        if span < 4.0 or nights < 2:
+        recent_nights = set(nights[-recent_night_count:])
+        recent = [(hour, night, statistics.median(p[1] for p in values))
+                  for (hour, night), values in groups.items() if night in recent_nights]
+        earlier = [statistics.median(p[0] for p in values)
+                   for (_, night), values in groups.items() if night not in recent_nights]
+        if len(earlier) < 8 or any(sum(night == n for _, night, _ in recent) < min_night_exposures for n in recent_nights):
             return None
-        recent_sorted = sorted(r for _, _, r in recent)
-        earlier_sorted = sorted(r for _, _, r in earlier)
-        recent_median = recent_sorted[len(recent_sorted) // 2]
-        earlier_median = earlier_sorted[len(earlier_sorted) // 2]
-        dark_line = self.scoring.program_bands["DARK"] * 1.3
+        # Use the upper completion interpretation in each recent night against
+        # the earlier lower interpretation. Program ambiguity alone cannot
+        # manufacture a fall in efficiency. Both recent nights must be low.
+        recent_median = max(statistics.median(value for _, night, value in recent if night == n) for n in recent_nights)
+        earlier_median = statistics.median(earlier)
+        # A saturated DARK bonus proves a matching band directly. Filtering
+        # these hits by a guessed earlier sky scale can discard real evidence.
         dark = [c for c in list(self._band_checks)[-16:]
-                if c[0] == "DARK" and (c[2] * earlier_median) / 0.95 >= dark_line]
+                if c[0] == "DARK"]
         return FaultEvidence(
             recent_median=round(recent_median, 3),
             earlier_median=round(earlier_median, 3),
             drop=round(recent_median / max(1e-9, earlier_median), 3),
             recent_samples=len(recent),
-            recent_nights=nights,
+            recent_nights=len(recent_nights),
             earlier_samples=len(earlier),
             dark_checks=len(dark),
             dark_matched=sum(1 for c in dark if c[1]),
         )
 
     def forget_quality_history(self) -> None:
+        self.blocked.clear()
         self.clean_history = []
+        self.clean_intervals = []
+        self.censored_exposures.clear()
         self._band_checks.clear()
         self._samples.clear()
         self._all_ratios.clear()

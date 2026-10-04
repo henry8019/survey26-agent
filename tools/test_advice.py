@@ -118,6 +118,46 @@ class AdviceTests(unittest.TestCase):
         init["survey"]["nights"][0]["observing_start_utc"] = "2026-11-01T11:00:00Z"
         self.assertEqual(SurveyState(init).night_dates[0], "2026-11-01")
 
+    def test_distinct_requests_in_same_night_both_replan(self):
+        from datetime import timedelta
+        c = self.controller([{"events": []}, {"priority": "required"},
+                             {"priority": "required"}, {"priority": "required"}])
+        now = c.state.survey_start
+        c.update({}, 0, now)
+        for index in (1, 2):
+            c.update({"new_messages": [{"record_type": "observation_request", "request_id": str(index)}]},
+                     0, now + timedelta(seconds=2 * index * c.state.slot_seconds))
+        adjustments = [r for r in c.trace.rows if r.get("stage") == "plan_adaptation"]
+        self.assertEqual(len(adjustments), 3)
+        self.assertNotEqual(adjustments[1]["event_ids"], adjustments[2]["event_ids"])
+
+    def test_cooldown_queues_revision_until_later_snapshot(self):
+        from datetime import timedelta
+        c = self.controller([{"events": []}, {"priority": "required"}, {"priority": "required"}])
+        now = c.state.survey_start
+        c.update({}, 0, now)
+        event = {"record_type": "state_resync", "invalidated_window": {"action_index_start": 1, "action_index_end_exclusive": 3}}
+        c.update({"new_messages": [event]}, 0, now + timedelta(seconds=1))
+        self.assertTrue(c.pending_events)
+        c.update({}, 0, now + timedelta(seconds=2 * c.state.slot_seconds))
+        self.assertFalse(c.pending_events)
+        self.assertEqual(c.trace.rows[-1]["trigger"], "state_resync")
+        self.assertEqual(len(c.trace.rows[-1]["event_ids"]), 1)
+        calls = c.client.calls_made
+        c.update({"new_messages": [event]}, 0, now + timedelta(seconds=4 * c.state.slot_seconds))
+        self.assertEqual(c.client.calls_made, calls)
+
+    def test_corrected_request_result_is_distinct_event(self):
+        from datetime import timedelta
+        c = self.controller([{"events": []}, {"priority": "required"},
+                             {"priority": "required"}, {"priority": "required"}])
+        now = c.state.survey_start
+        c.update({}, 0, now)
+        for index, revised in enumerate((False, True), 1):
+            c.update({"new_messages": [{"record_type": "observation_request_result", "request_id": "same", "revised": revised}]},
+                     0, now + timedelta(seconds=2 * index * c.state.slot_seconds))
+        self.assertEqual(len([r for r in c.trace.rows if r.get("stage") == "plan_adaptation"]), 3)
+
 
 if __name__ == "__main__":
     unittest.main()

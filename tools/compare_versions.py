@@ -3,6 +3,7 @@ import argparse
 import json
 import statistics
 from pathlib import Path
+from card_sets import card_order
 
 
 def load(paths):
@@ -10,20 +11,24 @@ def load(paths):
     for path in paths:
         for run in json.loads((path / "summary.json").read_text(encoding="utf-8"))["runs"]:
             groups.setdefault(run["card"], []).append(run)
-    if set(groups) != {"L1", "L2", "L3", "L4"}:
-        raise ValueError("four cards are required")
+    card_order(groups)
     return groups
 
 
 def compare(baseline, candidate):
+    if set(baseline) != set(candidate):
+        raise ValueError("baseline and candidate must use the same card set")
     rows = []
     complete = all(r["termination_reason"] == "survey_complete" and r.get("model_mode") == "configured-api"
                    and not r.get("planner_errors", 0) and not r.get("validation_errors", 0)
                    for groups in (baseline, candidate) for runs in groups.values() for r in runs)
     complete = complete and all(len({r.get("source_sha256") for runs in groups.values() for r in runs}) == 1
                                 for groups in (baseline, candidate))
-    for card in ("L1", "L2", "L3", "L4"):
+    for card in card_order(baseline):
         a, b = baseline[card], candidate[card]
+        identities = {r.get("card_sha256") for r in a + b}
+        if len(identities) != 1:
+            raise ValueError("baseline and candidate must use identical card files: " + card)
         sa, sb = (statistics.median(r["total"] for r in runs) for runs in (a, b))
         rows.append({"card": card, "baseline": sa, "candidate": sb, "delta": sb - sa,
                      "relative_delta": (sb - sa) / max(abs(sa), 1),
@@ -45,8 +50,9 @@ def evaluation_medians(paths):
     evaluations = []
     for path in paths:
         runs = json.loads((path / "summary.json").read_text(encoding="utf-8"))["runs"]
-        if len(runs) != 4 or {r["card"] for r in runs} != {"L1", "L2", "L3", "L4"}:
+        if len(runs) != 4 or len({r["card"] for r in runs}) != 4:
             raise ValueError("each evaluation must contain exactly four distinct cards")
+        card_order(r["card"] for r in runs)
         evaluations.append({"evaluation": path.name,
                             "mean": statistics.mean(r["total"] for r in runs),
                             "minimum": min(r["total"] for r in runs),

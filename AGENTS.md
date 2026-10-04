@@ -22,6 +22,7 @@ agent_core/
   geometry.py              public sky maths (sidereal time, alt/az, fibre grid)
   scoring.py               factor/score estimates from PUBLIC scoring config only
   planner.py               bounded pointing/exposure search, completion/anomaly guards
+  exposure.py              joint fibre choices and integer exposure breakpoints
   llm_client.py            OpenAI-compatible chat client, defaults to Kimi Coding Plan
   advice.py                source-scoped message interpretation and priority adaptation
   calibration.py           unused experimental helper retained for source identity
@@ -41,7 +42,9 @@ The model calls are issued through `advice.py`, with a per-card limit of 150 sec
 40 HTTP attempts, 8 seconds per attempt and two attempts per question. Keep the last
 60 seconds of wall clock for deterministic actions. Model output may not directly
 produce an action or override confirmed progress. Never read private local weather
-or branch strategy on card/target IDs. See `PROJECT.md` and `SCHEDULING.md` for
+or branch strategy on card/target IDs. Use official rules, current card configuration,
+initialize messages and the original scorer as authority; the upstream example is
+a reference. See `PROJECT.md`, `KNOWN_ISSUES.md` and `SCHEDULING.md` for
 accepted experiments and evidence. Preserve sequential stage validation: use real
 Kimi on all four cards, freeze source, and compare mean/minimum/missing-required
 counts before promoting and packaging a candidate. Check both per-card medians
@@ -50,6 +53,11 @@ Candidate exposure evaluation must not mutate feedback predictions or progress.
 Commit predictions only for the winning action. Keep the original pointing policy
 during its existing quality anomaly phase until a separately evaluated change to
 the quality estimator and diagnosis is accepted.
+
+The official alpha-delta export currently lacks full replay files. Local scoring
+tools default to official cards and stop on missing products. Choose examples
+explicitly with --card-set examples; their scores are engineering regressions,
+not official practice, formal or hidden performance.
 
 ## Configuring the LLM (Kimi key / base URL / model)
 

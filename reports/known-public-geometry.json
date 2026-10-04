@@ -1,0 +1,156 @@
+{
+  "kind": "public_geometry_only_no_score",
+  "assumed_quality_scale": 1.0,
+  "assumed_slot_seconds": 900,
+  "project": ".local\\versions\\known-last-night-audit",
+  "samples": [
+    {
+      "card": "alpha",
+      "night": 0,
+      "seconds": 0.391678599989973,
+      "assigned": 15,
+      "duration_seconds": 281,
+      "geometry_errors": []
+    },
+    {
+      "card": "alpha",
+      "night": 19,
+      "seconds": 0.4079675000393763,
+      "assigned": 14,
+      "duration_seconds": 775,
+      "geometry_errors": []
+    },
+    {
+      "card": "alpha",
+      "night": 37,
+      "seconds": 0.40421920001972467,
+      "assigned": 13,
+      "duration_seconds": 74,
+      "geometry_errors": []
+    },
+    {
+      "card": "beta",
+      "night": 0,
+      "seconds": 0.39551569998729974,
+      "assigned": 16,
+      "duration_seconds": 60,
+      "geometry_errors": []
+    },
+    {
+      "card": "beta",
+      "night": 19,
+      "seconds": 0.4061688000219874,
+      "assigned": 15,
+      "duration_seconds": 60,
+      "geometry_errors": []
+    },
+    {
+      "card": "beta",
+      "night": 37,
+      "seconds": 0.4071135999984108,
+      "assigned": 15,
+      "duration_seconds": 60,
+      "geometry_errors": []
+    },
+    {
+      "card": "gamma",
+      "night": 0,
+      "seconds": 0.4014551999862306,
+      "assigned": 15,
+      "duration_seconds": 60,
+      "geometry_errors": []
+    },
+    {
+      "card": "gamma",
+      "night": 19,
+      "seconds": 0.410226900014095,
+      "assigned": 15,
+      "duration_seconds": 60,
+      "geometry_errors": []
+    },
+    {
+      "card": "gamma",
+      "night": 37,
+      "seconds": 0.40799239999614656,
+      "assigned": 16,
+      "duration_seconds": 192,
+      "geometry_errors": []
+    },
+    {
+      "card": "delta",
+      "night": 0,
+      "seconds": 0.42487639997852966,
+      "assigned": 16,
+      "duration_seconds": 60,
+      "geometry_errors": []
+    },
+    {
+      "card": "delta",
+      "night": 19,
+      "seconds": 0.4204108999692835,
+      "assigned": 15,
+      "duration_seconds": 144,
+      "geometry_errors": []
+    },
+    {
+      "card": "delta",
+      "night": 37,
+      "seconds": 0.42301560001214966,
+      "assigned": 16,
+      "duration_seconds": 439,
+      "geometry_errors": []
+    }
+  ],
+  "source_sha256": "af7a10bfcba08ba792ea62835cc86045933ed02641964763ff7fbf964889d96d",
+  "source_files": {
+    "agent.py": "3c51d8f38be68d54e39443dbe40ce2cbadd6c451b67f0bf1c0ce611ecbd718a6",
+    "observer.project.json": "373d448f4193fbb5364edb347cc99d2468de98db253267e1267c26ac98e6c43b",
+    "agent_core/__init__.py": "86f2aa3636a25e64fde75376458dbe0fa1efcbee58d18ee5cfc93322ccc45330",
+    "agent_core/advice.py": "5870d4b73baa745ece96af872523f06851600636f67d8c458de7f4b9019c1262",
+    "agent_core/calibration.py": "f6339f0144cb53e966302ec1fc5d1308e64b72073f5ad9852f440aa671bbc0ca",
+    "agent_core/exposure.py": "7030c2f138b1cb928cb0b077903ba4f2758bd5c389e2f98b02a5f36c9d0ab625",
+    "agent_core/geometry.py": "4dff3dc2d6f449d43276747b38ebcc64275df43bfdbc5c10da10dea0fe37a73b",
+    "agent_core/llm_client.py": "273fd5822fa475bbd0c832cdb563eab99b00f7ac309512439e8ed24cc177bbf3",
+    "agent_core/memory.py": "50b85b4a71e0450b54eb9487d40da11fddc8c41199612fba3810ddddf0e8bbfa",
+    "agent_core/planner.py": "7adcd00e905ff63c5d30abfee5f5f8c56dffd514a17d428948e85b4fcaa61cdf",
+    "agent_core/protocol.py": "470c26cae91e2d40fd629d31d024338e32a2ca645cec669cace2433f7e76edcf",
+    "agent_core/requests.py": "40f77cc359ab5370497a1c96bc7fa3086300028f7da23883daabf231cc036642",
+    "agent_core/scoring.py": "da7bd31b72745fc1dc0a2351029545b6666ddb57bf2c4b955363a1b268b2df02",
+    "agent_core/state.py": "13405b810a05c883b2503f5a5d70939481abf504cc4feae54e24c16fd9dc3c18",
+    "agent_core/validation.py": "3cb5947a9ebf8d5c5de1b611ad40ad8cbdbc8b21c418b13a33a1c93896f00759"
+  },
+  "public_input_files": {
+    "alpha": {
+      "config/v4_fiber_config.json": "85fc175cb198b1c65d33a123cfbc8b6c1deb10778eef0dbfa659156918e23c8f",
+      "config/v4_scenario.json": "8910f40c25eddaec7db772277b8e89fad7968a0f0ef68992e3d74a256481ce9d",
+      "config/v4_score_config.json": "8b2dd879a684e8dc51e2a3f33dfe6301c277b7f0ee95415c6649498d3a8784cd",
+      "public/footprint.csv": "6f62b8733c3d0a405bde82a131110b28b383f01f91bac6e6324fb3f0661b8882",
+      "public/targets.csv": "73242c16513c33f61dbe6cd96a358447e35267d1de6d7cef7cc4b71fad0ae0bc",
+      "public/v4_night_calendar.csv": "313243fdf7aba33fa476e4c31403ba08ee3b90c354c7bb0f82d102122d78be3c"
+    },
+    "beta": {
+      "config/v4_fiber_config.json": "85fc175cb198b1c65d33a123cfbc8b6c1deb10778eef0dbfa659156918e23c8f",
+      "config/v4_scenario.json": "fbfc80887b0d50290d4bd20eb60a270111913c1cb6068a0b051010dd01c37c3c",
+      "config/v4_score_config.json": "8b2dd879a684e8dc51e2a3f33dfe6301c277b7f0ee95415c6649498d3a8784cd",
+      "public/footprint.csv": "6437c9db4bb9d71f432b5b10eb953b8df4995435b75b232734f3beb5b92bd960",
+      "public/targets.csv": "4769aa6f76cd0225d58dff58e2cf8628ec4c95c9839d946bc8a80aa23cc0b166",
+      "public/v4_night_calendar.csv": "32813747337d6d2057a93ea7bb99e90fa52d0ea2b3701f0d87a0eaf135a577b5"
+    },
+    "gamma": {
+      "config/v4_fiber_config.json": "85fc175cb198b1c65d33a123cfbc8b6c1deb10778eef0dbfa659156918e23c8f",
+      "config/v4_scenario.json": "2008e58fe43ed2c510466e626a1f00d52021a586f6fc6694f03fbf452e8335b1",
+      "config/v4_score_config.json": "8b2dd879a684e8dc51e2a3f33dfe6301c277b7f0ee95415c6649498d3a8784cd",
+      "public/footprint.csv": "da1bcfe970819a110034caf5212eddad4c7342762f1f574fb90d5facbce4263b",
+      "public/targets.csv": "3de3c2e917fab98d0e81f8280f512f85dbebf4576cd611ea1efe52c8c9e2d488",
+      "public/v4_night_calendar.csv": "55da1bc4ab5dbbafd19c24abc01eedf5278b11552ecb04bd8a36c784734d6a16"
+    },
+    "delta": {
+      "config/v4_fiber_config.json": "85fc175cb198b1c65d33a123cfbc8b6c1deb10778eef0dbfa659156918e23c8f",
+      "config/v4_scenario.json": "f189487ee3c40dd082be08f8d11890949d36d8a21c91715459d6cc4c47cb759a",
+      "config/v4_score_config.json": "8b2dd879a684e8dc51e2a3f33dfe6301c277b7f0ee95415c6649498d3a8784cd",
+      "public/footprint.csv": "d33e3040681aa36993ab98c28205ecc4e4800a7b4452d197bfaf69cc261835fe",
+      "public/targets.csv": "a9bcbe621df83bbe074075f1a786e80490dd578fbc145b028cdc30ced220f2ea",
+      "public/v4_night_calendar.csv": "81f8cdcdd099f2f4cb8c6216577c7274d2fe7188b68a3acff5ca1f5ad3f6c2d4"
+    }
+  }
+}

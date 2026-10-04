@@ -29,6 +29,7 @@ def describe(entry):
         records = [json.loads(line) for line in trace.read_text(encoding="utf-8").splitlines()] if trace.exists() else []
         finishes = [row for row in records if row.get("event") == "finish"]
         trace_stats.append({"card": r["card"], "file": str(trace.relative_to(ROOT)),
+                            "sha256": hashlib.sha256(trace.read_bytes()).hexdigest() if trace.exists() else None,
                             "stages_applied": finishes[-1].get("model_stages_applied", []) if finishes else [],
                             "advice_rejected": sum(row.get("event") == "model_advice_applied" and not row.get("accepted") for row in records),
                             "request_bundles": sum(row.get("event") == "request_bundle" for row in records),
@@ -37,7 +38,13 @@ def describe(entry):
                             "pointing_selections": sum(row.get("event") == "pointing_selection" for row in records),
                             "pointing_switches": sum(row.get("event") == "pointing_selection" and row.get("selected_rank", 0) > 0 for row in records),
                             "required_protected_selections": sum(row.get("event") == "pointing_selection" and row.get("protected_required", 0) > 0 for row in records),
-                            "quality_guard_selections": sum(row.get("event") == "pointing_selection" and bool(row.get("quality_guard")) for row in records)})
+                            "quality_guard_selections": sum(row.get("event") == "pointing_selection" and bool(row.get("quality_guard")) for row in records),
+                            "lookahead_complete": sum(row.get("event") == "lookahead" and bool(row.get("complete")) for row in records),
+                            "lookahead_changed": sum(row.get("event") == "lookahead" and bool(row.get("changed")) for row in records),
+                            "request_deferred": sum(row.get("event") == "request_deferred" for row in records),
+                            "short_diagnostic_exposures": sum(row.get("event") == "diagnostic_short_exposure" for row in records),
+                            "quality_calibration_exposures": sum(row.get("event") == "diagnostic_short_exposure" and row.get("purpose") == "uncensored_quality_calibration" for row in records),
+                            "terminal_diagnostics": sum(row.get("event") == "terminal_diagnostic" for row in records)})
     keys = ["total", "sum_best_scores", "required_missing", "required_penalty", "uniformity_penalty",
             "report_settlement", "observation_request_reward", "wall_seconds", "model_attempts", "model_seconds"]
     medians = {card: {k: statistics.median(r[k] for r in rows) for k in keys if all(k in r for r in rows)}
@@ -67,11 +74,12 @@ def main():
         for entry in descriptions.values():
             paths = [ROOT / p for p in entry["runs"]]
             entry["whole_evaluations"] = evaluation_medians(paths)
-            keys = ("card", "source_sha256", "total", "sum_best_scores", "required_missing", "required_penalty",
+            keys = ("card", "card_sha256", "card_source", "model_mode", "requested_wallclock_seconds",
+                    "source_sha256", "total", "sum_best_scores", "required_missing", "required_penalty",
                     "uniformity_penalty", "report_settlement", "observation_request_reward", "wall_seconds",
                     "runner_seconds", "model_attempts", "model_failed_attempts", "model_seconds",
                     "model_stages_applied", "termination_reason", "planner_errors", "validation_errors")
-            entry["card_runs"] = [{"evaluation": path.name, **{key: run[key] for key in keys}}
+            entry["card_runs"] = [{"evaluation": path.name, **{key: run[key] for key in keys if key in run}}
                                   for path in paths
                                   for run in json.loads((path / "summary.json").read_text(encoding="utf-8"))["runs"]]
     comparisons = {}
@@ -86,7 +94,9 @@ def main():
     if args.whole_evaluations and (not all(e["all_complete_same_source"] for e in descriptions.values())
                                   or not comparisons.get(selected["name"], {}).get("accepted")):
         raise ValueError("The selected candidate must pass both real-evaluation gates with verified frozen sources")
-    report = {"note": "Real Kimi; local L1-L4 only, not platform or hidden cards. Components are independently summarized medians.",
+    report = {"note": "Real Kimi on the named card set; components are independently summarized medians. Practice and example cards do not establish formal or hidden performance.",
+              "card_set": manifest.get("card_set", "not_declared"),
+              "official_scored_acceptance": manifest.get("official_scored_acceptance", False),
               "selected": manifest["selected"], "experiments": descriptions, "comparisons": comparisons}
     args.out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps({n: {k: e[k] for k in ["mean", "minimum", "required_missing_total", "all_complete_same_source"]}

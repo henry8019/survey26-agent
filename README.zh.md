@@ -1,6 +1,6 @@
-> 当前项目：[PROJECT.md](PROJECT.md)。当前调度策略及真实 Kimi 验证：[SCHEDULING.md](SCHEDULING.md)。提交版本信息：[SUBMISSION_VERSION.json](SUBMISSION_VERSION.json)。
+> 当前项目：[PROJECT.md](PROJECT.md)。已知问题修复、真实 Kimi 回归及官方输入状态：[KNOWN_ISSUES.md](KNOWN_ISSUES.md)。提交版本信息：[SUBMISSION_VERSION.json](SUBMISSION_VERSION.json)。
 
-> 当前评测证据：[reports/scheduling-optimization.json](reports/scheduling-optimization.json)。此前轮次与 v1 复盘：[OPTIMIZATION.md](OPTIMIZATION.md)、[REVIEW.md](REVIEW.md)。下文保留官方原始示例说明；当前行为和配置以 PROJECT.md 为准。
+> v2 历史实验：[SCHEDULING.md](SCHEDULING.md)。此前轮次与 v1 复盘：[OPTIMIZATION.md](OPTIMIZATION.md)、[REVIEW.md](REVIEW.md)。下文保留原始示例说明，当前行为和配置以 PROJECT.md 为准；示例 L1–L4 的得分不能代替官方 α–δ 或隐藏卡成绩。
 
 # python-agent —— participant-agent-protocol-v4 的示例智能体
 
