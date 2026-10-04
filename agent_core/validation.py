@@ -7,6 +7,7 @@ module's whole job is to make sure none of those ever reach stdout.
 from __future__ import annotations
 
 from typing import Optional
+from .geometry import parse_utc
 
 PROGRAMS = {"DARK", "BRIGHT", "BACKUP"}
 
@@ -22,16 +23,19 @@ def fallback_action(reason: str = "fallback", state=None) -> dict:
     return {"action": "wait", "duration_seconds": duration, "reason": reason, "decision_source": "deterministic"}
 
 
-def validate_action(action: dict, state, consecutive_reports: int = 0) -> dict:
+def validate_action(action: dict, state, consecutive_reports: int = 0, now=None) -> dict:
     """Return a sanitized copy of `action` containing only protocol-legal fields,
     or raise ActionRejected. `state` may be None (before initialize)."""
     if not isinstance(action, dict):
         raise ActionRejected("action is not a dict")
+    for key in ("reason", "decision_source"):
+        if action.get(key) is not None and not isinstance(action[key], str):
+            raise ActionRejected(f"{key} must be a string")
     kind = action.get("action")
     if kind == "observe":
         return _validate_observe(action, state)
     if kind == "wait":
-        return _validate_wait(action, state)
+        return _validate_wait(action, state, now)
     if kind == "report":
         limit = state.max_consecutive_reports if state is not None else 32
         if consecutive_reports >= limit:
@@ -42,13 +46,22 @@ def validate_action(action: dict, state, consecutive_reports: int = 0) -> dict:
     raise ActionRejected(f"unknown action kind {kind!r}")
 
 
-def _validate_wait(action: dict, state) -> dict:
+def _validate_wait(action: dict, state, now=None) -> dict:
     duration = action.get("duration_seconds")
     until = action.get("until_utc")
     out = {"action": "wait", "reason": action.get("reason"), "decision_source": action.get("decision_source")}
     if until is not None:
-        if not isinstance(until, str) or not until.endswith("Z"):
+        if duration is not None:
+            raise ActionRejected("wait needs exactly one of duration_seconds or until_utc")
+        if not isinstance(until, str) or not (until.endswith("Z") or until.endswith("+00:00")):
             raise ActionRejected(f"until_utc must be a UTC string ending in Z, got {until!r}")
+        try:
+            timestamp = parse_utc(until)
+            current = parse_utc(now) if isinstance(now, str) else now
+        except (ValueError, TypeError, OverflowError) as exc:
+            raise ActionRejected("until_utc is not a valid timestamp") from exc
+        if current is not None and timestamp <= current:
+            raise ActionRejected("until_utc must be later than now_utc")
         out["until_utc"] = until
         return out
     if duration is None:

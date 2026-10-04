@@ -76,7 +76,9 @@ class AdviceController:
         requests = payload.get("active_requests") or []
         request_ids = {r["request_id"] for r in requests}
         signature = hashlib.sha256(json.dumps([signature_data, sorted(request_ids)], sort_keys=True).encode()).hexdigest()
-        remaining = float((payload.get("wallclock") or {}).get("remaining_seconds", 0))
+        clock = payload.get("wallclock") or {}
+        remaining = min(float(clock.get("remaining_seconds", 0)),
+                        float(clock.get("wall_remaining_seconds", clock.get("remaining_seconds", 0))))
         if self.last_signature is None or signature != self.last_signature:
             answer = self._ask("message_understanding",
                                'Interpret the supplied telescope notices. Output only {"events":[{"source_index":0,"severity":"closed|degraded|obstruction|normal"}],"urgent_requests":["known request ID"]}. '

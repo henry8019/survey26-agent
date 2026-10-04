@@ -66,6 +66,14 @@ class ScoringModel:
     def completion_factor(self, flux: float, duration_seconds: float, quality: float) -> float:
         return max(0.0, min(1.0, flux * duration_seconds * quality / self.f0t0))
 
+    def program_quality_prior(self, geometry_quality: float) -> float:
+        """Nominal weather prior, independent of learned instrument throughput.
+
+        Hidden weather is not identifiable from score alone. This prior is an
+        estimate, not an assertion about the actual program band.
+        """
+        return geometry_quality / .95
+
     def program_band(self, q_band: float) -> str:
         if q_band >= self.program_bands["DARK"]:
             return "DARK"

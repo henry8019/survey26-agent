@@ -56,6 +56,18 @@ class RequestPlanner:
         return sum(max(0.0, (min(night_end, end) - max(night_start, start)).total_seconds())
                    for night_start, night_end in self.state.nights)
 
+    def _target_gain(self, i, factor):
+        """Conservative ordinary-science and required-completion benefit.
+
+        No guessed program bonus or uniformity gain; count each target once.
+        """
+        state = self.state
+        science = max(0.0, state.weight[i] * min(1.0, factor)
+                      * state.scoring.mismatch_multiplier - state.best_score[i])
+        required = (state.scoring.required_penalty if state.required[i]
+                    and state.factor[i] < state.scoring.required_threshold <= factor else 0.0)
+        return science + required
+
     def assess_execution(self, bundle, action, now, normal_rate, prefer_requests=False):
         """Price the actual first exposure and recheck the remainder without writing progress."""
         request = self.requests.get(bundle["request_id"])
@@ -68,14 +80,16 @@ class RequestPlanner:
             return None
         threshold = float(request["completion_factor_threshold"])
         predicted = set()
+        gains = {}
         targets = set(request["target_ids"])
         for target in action["assignments"].values():
             prediction = state.pending.get(target)
-            if target in targets and prediction is not None:
+            if prediction is not None:
                 i = state.index_of[target]
                 factor = state.scoring.completion_factor(state.flux[i], action["duration_seconds"],
                                                         prediction.model * state.scale * .9)
-                if factor >= threshold:
+                gains[i] = self._target_gain(i, factor)
+                if target in targets and factor >= threshold:
                     predicted.add(target)
         done = self.completed(request)
         if not predicted - done:
@@ -89,10 +103,13 @@ class RequestPlanner:
             if slot is None:
                 return None
             cursor = slot[0] + timedelta(seconds=slot[1])
+            gains[i] = max(gains.get(i, 0.0), self._target_gain(i, threshold))
         cost = self._observing_seconds(now, cursor)
         margin = .10 if prefer_requests else .20
-        net = float(request["completion_reward"]) - normal_rate * cost * (1 + margin)
-        return {"actual_bundle_cost_seconds": cost, "actual_bundle_net": net} if net > 0 else None
+        benefit = sum(gains.values())
+        net = float(request["completion_reward"]) + benefit - normal_rate * cost * (1 + margin)
+        return {"actual_bundle_cost_seconds": cost, "actual_bundle_net": net,
+                "actual_bundle_observation_gain": benefit} if net > 0 else None
 
     def choose(self, now, normal_rate, prefer_requests=False):
         state = self.state
@@ -134,10 +151,11 @@ class RequestPlanner:
                     continue
                 # Reward is valued once. Charge observable waiting gaps too;
                 # daytime between nights consumes no scientific opportunity.
-                cost = self._observing_seconds(earliest, cursor)
+                cost = self._observing_seconds(now, cursor)
                 opportunity = normal_rate * cost
                 margin = .10 if prefer_requests else .20
-                net = float(request["completion_reward"]) - opportunity * (1 + margin)
+                benefit = sum(self._target_gain(i, threshold) for i, *_ in ordered)
+                net = float(request["completion_reward"]) + benefit - opportunity * (1 + margin)
                 if net <= 0:
                     continue
                 first = ordered[0]

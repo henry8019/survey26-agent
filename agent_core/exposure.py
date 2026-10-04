@@ -101,7 +101,7 @@ def optimize(cells, programs, scoring, scale, lower, upper, *, thresholds=None, 
     best = request_best = None
     thresholds = thresholds or {}
     for program in programs:
-        multipliers = {f: [scoring.program_multiplier(program, scoring.program_band(c.model * scale / .95)) for c in curves]
+        multipliers = {f: [scoring.program_multiplier(program, scoring.program_band(scoring.program_quality_prior(c.model))) for c in curves]
                        for f, curves in cells.items()}
         durations = critical_seconds(cells, multipliers, lower, upper)
         for curves in cells.values():

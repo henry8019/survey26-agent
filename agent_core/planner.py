@@ -218,6 +218,8 @@ class Planner:
         self.log(f"planner: finished termination_reason={payload.get('termination_reason')} "
                  f"observes={self.observe_count} reports={self.reports} llm_calls={self.llm.calls_made}")
 
+        self.log("planner: model_stages_applied=" + (",".join(sorted(self.advice.applied_stages)) or "none"))
+
     def note_action(self, action: dict) -> None:
         """Called by agent.py right after an action is validated, so the consecutive-report
         counter (enforced by validation.py) stays correct even when a fallback replaced it."""
@@ -383,7 +385,7 @@ class Planner:
             if direction in DIRECTION_AZ and alt < 50.0 and _az_distance(az, DIRECTION_AZ[direction]) <= 60.0:
                 return 0.0
         risk = getattr(state, "model_altitude_risk", 0) if use_model else 0
-        if use_model and not risk and any(key in {"haze|ALL", "cloud|ALL", "cold|ALL"} for key in state.notices):
+        if use_model and not risk and any(key in {"haze|ALL", "overcast|ALL", "cold_snap|ALL", "cloud|ALL", "cold|ALL"} for key in state.notices):
             risk = .65  # Deterministic fallback for a currently published warning.
         factor = 1 - risk if alt < min(89, state.min_alt + 40) else 1.0
         for key in state.notices:
@@ -442,7 +444,7 @@ class Planner:
             alt, _ = radec_to_altaz(state.ra[i], state.dec[i], lst, state.lat)
             model = state.scoring.quality_model(alt, lunar_factor(moon, state.ra[i], state.dec[i], state.scoring.lunar_model))
             reached = state.scoring.completion_factor(state.flux[i], action["duration_seconds"], model * state.scale * PLAN_FACTOR_SAFETY)
-            band = state.scoring.program_band(model * state.scale / .95)
+            band = state.scoring.program_band(state.scoring.program_quality_prior(model))
             gain += self._gain(i, reached, action["program"], band)
         return gain / action["duration_seconds"]
 
@@ -803,7 +805,7 @@ class Planner:
                 completes_request = False
                 for item in valid:
                     reached = min(1.0, item["k"] * duration)
-                    band = scoring.program_band(item["model"] * state.scale / 0.95)
+                    band = scoring.program_band(scoring.program_quality_prior(item["model"]))
                     gain += self._gain(item["i"], reached, program, band)
                     threshold = self._request_thresholds_now.get(item["i"])
                     if threshold is not None and reached >= threshold:
@@ -827,7 +829,7 @@ class Planner:
         for fiber, item in info.items():
             if str(fiber) in assignments:
                 predictions[state.ids[item["i"]]] = PendingPrediction(
-                    model=item["model"], band_model=item["model"] / 0.95, alt=item["alt"], az=item["az"],
+                    model=item["model"], band_model=scoring.program_quality_prior(item["model"]), alt=item["alt"], az=item["az"],
                     clean=clean and self._direction_factor(item["alt"], item["az"], use_model=False) >= 1.0,
                 )
         action = {
@@ -888,7 +890,7 @@ class Planner:
         rate, duration, program, selected = result
         assignments = {str(f): state.ids[c.i] for f, c in selected.items()}
         clean = not state.all_sky_notice()
-        predictions = {state.ids[c.i]: PendingPrediction(c.model, c.model / .95, c.alt, c.az,
+        predictions = {state.ids[c.i]: PendingPrediction(c.model, scoring.program_quality_prior(c.model), c.alt, c.az,
                        clean and self._direction_factor(c.alt, c.az, use_model=False) >= 1) for c in selected.values()}
         return ExposurePlan({"action": "observe", "pointing": {"alt_deg": c_alt, "az_deg": c_az},
                              "assignments": assignments, "duration_seconds": duration, "program": program}, predictions, rate)
@@ -902,7 +904,7 @@ class Planner:
             i = state.index_of[target]
             scale = state.scale * quality_scale
             factor = scoring.completion_factor(state.flux[i], duration, prediction.model * scale * PLAN_FACTOR_SAFETY)
-            band = scoring.program_band(prediction.model * scale / .95)
+            band = scoring.program_band(prediction.band_model)
             score = state.weight[i] * factor * scoring.program_multiplier(program, band)
             lower, _ = state.factor_bounds(i, score, program)
             progress[i] = max(state.best_score[i], score), max(state.factor[i], lower)

@@ -27,7 +27,7 @@ SIDEREAL_DEG_PER_SECOND = 360.98564736629 / 86400.0
 
 class PendingPrediction(NamedTuple):
     model: float          # lunar/airmass quality model used at planning time
-    band_model: float      # model / 0.95, used for program-band back-estimation
+    band_model: float      # independent weather/geometry prior, never throughput feedback
     alt: float
     az: float
     clean: bool            # true when no all-sky notice / directional block applied at plan time
@@ -347,10 +347,10 @@ class SurveyState:
                     self._band_checks.append((self.pending_program, False, prediction.model))
             factor_if_match = score / (weight * declared_multiplier) if declared_multiplier > 0 else 0.0
             factor_if_miss = score / (weight * mismatch) if mismatch > 0 else 0.0
-            ratio_match = (factor_if_match * f0t0) / (self.flux[i] * self.pending_duration * prediction.model) \
-                if self.flux[i] > 0 and self.pending_duration > 0 and prediction.model > 0 else 0.0
-            band = scoring.program_band(ratio_match * prediction.band_model)
-            matched = band == self.pending_program
+            band = scoring.program_band(prediction.band_model)
+            # A score above the mismatch ceiling proves a bonus; otherwise
+            # matching remains uncertain and uses the independent prior only.
+            matched = score > weight * mismatch + 1e-9 or band == self.pending_program
             factor = factor_if_match if matched else factor_if_miss
             factor = min(1.0, factor)
             lower, upper = self.factor_bounds(i, score, self.pending_program)

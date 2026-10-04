@@ -60,7 +60,7 @@ def main() -> int:
             consecutive_reports = planner.consecutive_reports if planner is not None else 0
             try:
                 action = planner.decide(message["payload"]) if planner is not None else fallback_action("not initialized")
-                action = validate_action(action, state, consecutive_reports)
+                action = validate_action(action, state, consecutive_reports, message["payload"].get("now_utc"))
             except ActionRejected as exc:
                 log(f"agent: planner produced an invalid action ({exc}); falling back")
                 action = fallback_action("validation-rejected", state)
